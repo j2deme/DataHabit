@@ -119,8 +119,7 @@ public class DataHabitActivity extends TrackedListActivity {
     }
     public void deleteTracker(int position){
     	Cursor c = getCursorAtPosition(position);
-    	Tracker t = new Tracker();
-    	t.getTracker(this, c.getInt(0));
+    	Tracker t = new Tracker(this, c.getInt(0));
     	t.delete(this);
     }
     public void goToHistory(int position){

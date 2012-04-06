@@ -57,8 +57,7 @@ public class TrackerActivity extends TrackedActivity {
 
         Intent i = getIntent();
         trackerID = i.getIntExtra("TrackerRowID", 0);
-        t = new Tracker();
-        t.getTracker(this, trackerID);
+        t = new Tracker(this, trackerID);
         
         setView();
         setupListeners();

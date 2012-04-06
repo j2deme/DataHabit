@@ -33,7 +33,7 @@ public class helper {
 	}
 	public static String milliToStr (long milli){
 		DateTime c = new DateTime().withMillis(milli);
-		String s = c.toString("yyyy-MMM-dd hh:mm aa");
+		String s = c.toString("yyyy-MM-dd HH:mm:ss");
 		return s;
 	}
 }

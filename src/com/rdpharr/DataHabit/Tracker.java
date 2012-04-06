@@ -19,7 +19,7 @@ public class Tracker {
 	private long nextReminder; //timestamp
 	private long lastUpdate; //timestamp
 	
-	public void getTracker(Context ctx, int trackerId){
+	public Tracker(Context ctx, int trackerId){
 		//trackerId will be 0 if new
 		if (trackerId ==0) setTrackerDefaults(ctx);
 		else getTrackerFromDb(ctx,trackerId);
@@ -71,7 +71,6 @@ public class Tracker {
         mDbHelper.open();
         mDbHelper.deleteTracker(id);
     	
-        
         //delete associated datapoints
     	Cursor d = mDbHelper.fetchAllData(id);
     	if (d.getCount()>0){
@@ -154,5 +153,4 @@ public class Tracker {
 	public void setLastUpdate(long lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
-
 }
