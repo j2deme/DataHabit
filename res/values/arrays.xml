@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   	<string-array name="input_types"> 
+        <item>@string/star_rating</item>
+        <item>@string/slider_bar</item>
+        <item>@string/numeric_keyboard</item>
+        <item>@string/yes_no_choice</item>
+        <item>@string/push_button</item>
+        <item>@string/timer_stopwatch</item>
+    </string-array>
+    <string-array name="reminder_frequencies"> 
+        <item>@string/hours</item>
+        <item>@string/days</item>
+        <item>@string/weeks</item>
+    </string-array>
+</resources>

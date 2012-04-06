@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_layout"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <LinearLayout style="@style/TitleBar"
+        android:id="@+id/title_layout">
+        <ImageView style="@style/TitleBarSeparator" />
+
+        <TextView
+            style="@style/TitleBarText"
+            android:text="@string/app_name" />
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+ 
+    <com.rdpharr.DataHabit.DashboardLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+ 
+        <Button android:id="@+id/dashboard_button_trackers"
+            style="@style/DashboardButton"
+            android:text="@string/activity_trackers"
+            android:drawableTop="@drawable/db_history" />
+ 
+        <Button android:id="@+id/dashboard_button_export"
+            style="@style/DashboardButton"
+            android:text="@string/activity_export"
+            android:drawableTop="@drawable/db_export" />
+          
+        <Button android:id="@+id/dashboard_button_help"
+            style="@style/DashboardButton"
+            android:text="@string/activity_help"
+            android:drawableTop="@drawable/db_help" />   
+ 
+        <Button android:id="@+id/dashboard_button_settings"
+            style="@style/DashboardButton"
+            android:text="@string/activity_settings"
+            android:drawableTop="@drawable/db_settings" />   
+    </com.rdpharr.DataHabit.DashboardLayout>
+ 
+</LinearLayout>
+</LinearLayout>

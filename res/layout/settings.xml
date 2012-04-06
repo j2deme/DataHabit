@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_layout"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+    <LinearLayout style="@style/TitleBar"
+        android:id="@+id/title_layout">
+        <ImageView style="@style/TitleBarSeparator" />
+
+        <TextView
+            style="@style/TitleBarText"
+            android:text="@string/settings" />
+    </LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:layout_below="@+id/title_layout"
+    android:layout_above="@+id/bucket_layout"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbarDefaultDelayBeforeFade="3000">
+	    <LinearLayout
+	    android:orientation="vertical"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content">
+		    <CheckBox
+		        android:id="@+id/notification_sound"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/notifications_sounds" />
+
+		    <CheckBox
+		        android:id="@+id/notification_vibrate"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/notification_vibrate" />
+	    </LinearLayout>
+    </ScrollView>
+	<RelativeLayout
+	    android:id="@+id/bucket_layout"
+	    style="@style/BucketBar"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true" >
+	    <TextView
+	        android:id="@+id/tvTrackerCancel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:padding="7sp"
+	        android:text="Large Text"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	    <TextView
+	        android:id="@+id/tvTrackerSave"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:padding="7sp"
+	        android:text="Large Text"
+	        android:textAppearance="?android:attr/textAppearanceLarge" android:layout_alignParentRight="true"/>
+	</RelativeLayout>
+</RelativeLayout>

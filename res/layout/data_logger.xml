@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:layout_below="@+id/title_layout"
+    android:layout_above="@+id/bucket_layout"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbarDefaultDelayBeforeFade="3000">
+        <LinearLayout android:id="@+id/menu_ll"
+        android:orientation="vertical"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content">
+	    <TextView
+	        android:id="@+id/tvTitle"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+ 	    <include layout="@layout/data_controls"
+    		android:layout_height="wrap_content"
+	    	android:layout_width="fill_parent" />
+	    <TextView
+	        android:id="@+id/Comment"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/Comments"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    <EditText
+        android:id="@+id/etComment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:singleLine="false" android:lines="3"
+        android:gravity="top"
+        android:inputType="textMultiLine" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:padding="3sp">
+
+    	<TextView
+    	    android:id="@+id/tvStartTimeLabel"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_alignParentLeft="true"
+    	    android:layout_below="@+id/tvNumReminders"
+    	    android:text="@string/time"
+    	    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+		<TextView
+		        android:id="@+id/tvStartTime"
+		        android:layout_alignBaseline="@+id/tvStartTimeLabel"
+		        android:layout_alignParentRight="true"
+            	android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:clickable="true"
+		        android:text="@string/start_time"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:padding="3sp">
+
+		    	<TextView
+		    	    android:id="@+id/tvStartDateLabel"
+		    	    android:layout_width="wrap_content"
+		    	    android:layout_height="wrap_content"
+		    	    android:layout_alignParentLeft="true"
+		    	    android:layout_below="@+id/tvNumReminders"
+		    	    android:text="@string/date"
+		    	    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+		<TextView
+		        android:id="@+id/tvStartDate"
+		        android:layout_alignBaseline="@+id/tvStartDateLabel"
+		        android:layout_alignParentRight="true"
+            	android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:clickable="true"
+		        android:text="@string/start_date"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+		
+    </RelativeLayout>
+        </LinearLayout>
+        
+    </ScrollView>
+    
+    <RelativeLayout style="@style/BucketBar"
+    android:id="@+id/bucket_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true" >
+        <com.adwhirl.AdWhirlLayout
+		    android:id="@+id/adView"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"/>
+        <!--
+        <com.google.ads.AdView android:id="@+id/adView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			ads:adUnitId="a14f5279f357807"                          
+			ads:adSize="BANNER"                         
+			ads:loadAdOnCreate="true"/>
+		-->
+        <TextView
+        android:id="@+id/tvDataSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/adView"
+        android:padding="7sp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:id="@+id/TvDataCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignBaseline="@+id/tvDataSave"
+        android:padding="7sp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>
+   
+</RelativeLayout>
