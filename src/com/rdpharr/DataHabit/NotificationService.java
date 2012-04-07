@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.util.Log;
 
 public class NotificationService extends IntentService {
@@ -71,7 +72,15 @@ public class NotificationService extends IntentService {
 		
 		
 		SharedPreferences settings = getSharedPreferences("notifications", 0);
-		if (settings.getInt("sound", 0) ==1) notification.defaults |= Notification.DEFAULT_SOUND;
+		if (settings.getInt("sound", 0) ==1) {
+			String soundUri =settings.getString("soundUri", null); 
+			Log.d("got soundUri",soundUri);
+			if (soundUri.equals(null)){
+				notification.defaults |= Notification.DEFAULT_SOUND;
+			}else{
+				notification.sound = Uri.parse(soundUri);
+			}
+		}
 		if (settings.getInt("vibrate", 0) ==1) notification.defaults |= Notification.DEFAULT_VIBRATE;
 		notification.defaults |= Notification.DEFAULT_LIGHTS;
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;

@@ -83,4 +83,5 @@
     <string name="start_timer">Start Timer</string>
     <string name="stop_timer">Stop Timer</string>
     <string name="update">Update</string>
+    <string name="custom_sound">Set Notification Sound</string>
 </resources>

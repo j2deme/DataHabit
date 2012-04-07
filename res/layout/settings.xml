@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    >
+    android:padding="5sp">
     <LinearLayout style="@style/TitleBar"
         android:id="@+id/title_layout">
         <ImageView style="@style/TitleBarSeparator" />
@@ -26,17 +26,28 @@
 	    android:orientation="vertical"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content">
+			<CheckBox
+		        android:id="@+id/notification_vibrate"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="@string/notification_vibrate"
+		        />
 		    <CheckBox
 		        android:id="@+id/notification_sound"
-		        android:layout_width="wrap_content"
+		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:text="@string/notifications_sounds" />
+		        android:text="@string/notifications_sounds"
+		        />
 
-		    <CheckBox
-		        android:id="@+id/notification_vibrate"
+		    <TextView
+		        android:id="@+id/tvCustomSound"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/notification_vibrate" />
+		        android:text="@string/custom_sound"
+		        android:textAppearance="?android:attr/textAppearanceMedium"
+		        android:clickable="true" 
+		        android:padding="7sp"/>
+
 	    </LinearLayout>
     </ScrollView>
 	<RelativeLayout
