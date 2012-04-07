@@ -1,3 +1,10 @@
+/*
+ *TrackerActivity:
+ *Manages settings for a single tracker: name, type, reminders
+ *Layout is tracker.xml
+ *Tracker objects from tracker.java
+ */
+
 package com.rdpharr.DataHabit;
 
 import org.joda.time.DateTime;
@@ -28,37 +35,33 @@ import android.widget.TextView;
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
 public class TrackerActivity extends TrackedActivity {
-	private static TextView tvName;
-	private Spinner spinner;
-	private CheckBox cbEnabled;
-	private TextView tvNumReminders;
-	private TextView tvRemindCycle;
-	private TextView tvStartTime;
-	private TextView tvStartDate;
-	private int trackerID;
-	private String[] items;
-	private int layout;
-	private RelativeLayout rlTimer;
+	private TextView tvName;//Name of Tracker
+	private Spinner spinner;//Type of Tracker
+	private CheckBox cbEnabled; //are reminders enabled?
+	private TextView tvNumReminders; //number of reminders
+	private TextView tvRemindCycle; //hours,days,weeks selector
+	private TextView tvStartTime; //time to start reminders
+	private TextView tvStartDate; //date to start reminders
+	private String[] items; //list of tracker types from array
+	private RelativeLayout rlTimer; //timer layout
 	private EditText etSecs;
 	private EditText etMins;
 	private EditText etHours;
 	private TextView tvTimerControl;
+	private int trackerID; //tracker id from  intent, new is 0
 	private Tracker t;
 	
 	 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        layout = R.layout.tracker;
-        setContentView(layout);
+        setContentView(R.layout.tracker);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        findViewItems();
         
-		items = getResources().getStringArray(R.array.reminder_frequencies);
-
         Intent i = getIntent();
         trackerID = i.getIntExtra("TrackerRowID", 0);
         t = new Tracker(this, trackerID);
         
+        findViewItems();
         setView();
         setupListeners();
         reminderListeners();
@@ -189,8 +192,7 @@ public class TrackerActivity extends TrackedActivity {
     	{
     	    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
     	    {
-    	        if ( isChecked ) setEnabled(true);
-    	        else setEnabled(false);
+    	        setEnabled(isChecked);
     	    }
     	});
         tvTimerControl.setText(helper.underline(getResources().getString(R.string.start_timer)));
@@ -238,8 +240,7 @@ public class TrackerActivity extends TrackedActivity {
 		spinner.setSelection(t.getType());
 		if (t.getReminderEnabled()>0)setEnabled(true);
 		else setEnabled(false);
-		tvNumReminders.setText(String.valueOf(t.getReminderFreq()));
-		String[] items = getResources().getStringArray(R.array.reminder_frequencies);
+		tvNumReminders.setText(helper.underline(String.valueOf(t.getReminderFreq())));
 		String strCycle = (String) items[t.getReminderCycle()];
 		tvRemindCycle.setText(helper.underline(strCycle));
 		DateTime dt = new DateTime();
@@ -260,6 +261,7 @@ public class TrackerActivity extends TrackedActivity {
     	etMins = (EditText)findViewById(R.id.etMins);
     	etHours = (EditText)findViewById(R.id.etHours);
     	tvTimerControl = (TextView)findViewById(R.id.tvTimerControl);
+    	items = getResources().getStringArray(R.array.reminder_frequencies);
 	}
 	private class MySpinnerListener implements OnItemSelectedListener {
         TextView tv = (TextView) findViewById(R.id.chose_label);
