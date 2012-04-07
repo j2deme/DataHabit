@@ -1,0 +1,12 @@
+DataHabit project is a simple data logger for Android. Allows you to keep a personal data diary, with reminders to enter data
+
+Key Features:
+*Multiple types of data input supported:
+*Comments for every data point
+*Time stamps for every data point
+*Scheduled reminders (hourly, daily, weekly) or multiples thereof (every 12 hours, every 3 weeks, etc.)
+*Export your data via an spreadsheet (CSV) attached to an email message
+
+URLs:
+ - https://play.google.com/store/apps/details?id=com.rdpharr.DataHabit
+ - http://datahabit.com
