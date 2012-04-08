@@ -30,7 +30,7 @@ public class DashboardActivity extends TrackedActivity {
 	        Intent i = null;
 	        switch (v.getId()) {
 	            case R.id.dashboard_button_trackers:
-	            	i = new Intent(DashboardActivity.this, DataHabitActivity.class);
+	            	i = new Intent(DashboardActivity.this, TrackerListActivity.class);
 	                break;
 	            case R.id.dashboard_button_export:
 	            	i = new Intent(DashboardActivity.this, exportDataActivity.class);

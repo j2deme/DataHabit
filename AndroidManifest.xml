@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>            
         </activity>
-        <activity android:name="DataHabitActivity" android:label="@string/app_name"
+        <activity android:name="TrackerListActivity" android:label="@string/app_name"
           android:theme="@android:style/Theme.NoTitleBar"></activity>
         <receiver android:name="alarmMgr">  
 		    <intent-filter>  

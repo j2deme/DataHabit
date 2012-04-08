@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
@@ -20,8 +19,9 @@ import android.widget.TextView;
 
 import com.google.android.apps.analytics.easytracking.TrackedListActivity;
 
-public class DataHabitActivity extends TrackedListActivity {
+public class TrackerListActivity extends TrackedListActivity {
 	private dbAdapter mDbHelper;
+	private int trackerId;
 	
     /** Called when the activity is first created. */
     @Override
@@ -38,9 +38,9 @@ public class DataHabitActivity extends TrackedListActivity {
         tvNewMonitor.setText(helper.underline(this.getString(R.string.new_tracker)));
         tvNewMonitor.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	Intent i = new Intent(DataHabitActivity.this, tabTrackerActivity.class);
+            	Intent i = new Intent(TrackerListActivity.this, tabTrackerActivity.class);
             	i.putExtra("tabID", 1);
-            	DataHabitActivity.this.startActivity(i);
+            	TrackerListActivity.this.startActivity(i);
             }
         });
         ListView lv = getListView();
@@ -104,35 +104,32 @@ public class DataHabitActivity extends TrackedListActivity {
         }
     }
     public void goToTracker (int position){
-    	Cursor c = getCursorAtPosition(position);
-    	Intent i = new Intent(DataHabitActivity.this, tabTrackerActivity.class);
-    	i.putExtra("TrackerRowID", c.getInt(0));
+    	Intent i = new Intent(TrackerListActivity.this, tabTrackerActivity.class);
+    	i.putExtra("TrackerRowID", getTrackerId(position));
     	i.putExtra("tabID", 1);
-    	DataHabitActivity.this.startActivity(i);
+    	TrackerListActivity.this.startActivity(i);
     }
     public void goToLogger(int position){
-    	Cursor c = getCursorAtPosition(position);
-    	Intent i = new Intent(DataHabitActivity.this, tabTrackerActivity.class);
-    	i.putExtra("TrackerRowID", c.getInt(0));//
+    	Intent i = new Intent(TrackerListActivity.this, tabTrackerActivity.class);
+    	i.putExtra("TrackerRowID", getTrackerId(position));//
     	i.putExtra("tabID", 0);
-    	DataHabitActivity.this.startActivity(i);
+    	TrackerListActivity.this.startActivity(i);
     }
     public void deleteTracker(int position){
-    	Cursor c = getCursorAtPosition(position);
-    	Tracker t = new Tracker(this, c.getInt(0));
+    	Tracker t = new Tracker(this, getTrackerId(position));
     	t.delete(this);
     }
     public void goToHistory(int position){
-    	Cursor c = getCursorAtPosition(position);
-    	Intent i = new Intent(DataHabitActivity.this, tabTrackerActivity.class);
-    	i.putExtra("TrackerRowID", c.getInt(0));//
+    	Intent i = new Intent(TrackerListActivity.this, tabTrackerActivity.class);
+    	i.putExtra("TrackerRowID", getTrackerId(position));//
     	i.putExtra("tabID", 2);
-    	DataHabitActivity.this.startActivity(i);
+    	TrackerListActivity.this.startActivity(i);
     }
-    public Cursor getCursorAtPosition (int position){
+    private int getTrackerId(int position){
     	Cursor c = mDbHelper.fetchAllTrackers();
         startManagingCursor(c);
         c.moveToPosition(position);
-        return c;
+        int trackerNum = c.getInt(0);
+        return trackerNum;
     }
 }
