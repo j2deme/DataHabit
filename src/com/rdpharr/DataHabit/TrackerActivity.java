@@ -77,7 +77,7 @@ public class TrackerActivity extends TrackedActivity {
 	        	    DatePickerDialog dtDialog = new DatePickerDialog(TrackerActivity.this, new DatePickerDialog.OnDateSetListener() {
     	                public void onDateSet(DatePicker view, int year, 
                                 int monthOfYear, int dayOfMonth) {
-    	                	tvStartDate.setText(helper.underline(
+    	                	tvStartDate.setText(Helper.underline(
     	                			String.valueOf(year) +
     	                			"-" +
     	                			String.valueOf(monthOfYear+1)+
@@ -99,7 +99,7 @@ public class TrackerActivity extends TrackedActivity {
         	                public void onTimeSet(android.widget.TimePicker view,
         	                        int hourOfDay, int minute) {
         	                	tvStartTime.setText(
-        	                			helper.underline(
+        	                			Helper.underline(
         	                					String.format("%02d:%02d",hourOfDay,minute)));
         	                }
 	        	    },mHour, mMinute, false);
@@ -114,7 +114,7 @@ public class TrackerActivity extends TrackedActivity {
 				alert.setTitle(getResources().getString(R.string.set_cycle));
 				alert.setItems(items, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
-				    	tvRemindCycle.setText(helper.underline((String) items[item]));
+				    	tvRemindCycle.setText(Helper.underline((String) items[item]));
 				    	t.setReminderCycle(item);
 				    }
 				});
@@ -132,7 +132,7 @@ public class TrackerActivity extends TrackedActivity {
 	        	  alert.setView(input);
 	        	  alert.setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
 	        	  public void onClick(DialogInterface dialog, int whichButton) {
-	        		  tvNumReminders.setText(helper.underline(input.getText().toString()));
+	        		  tvNumReminders.setText(Helper.underline(input.getText().toString()));
 	        	    }
 	        	  });
 	        	  alert.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -158,7 +158,7 @@ public class TrackerActivity extends TrackedActivity {
 	        		  String text = input.getText().toString();
 	        		  text.trim();
 	        		  if (text.length()==0) text = title; 
-	        		  tvName.setText(helper.underline(text));
+	        		  tvName.setText(Helper.underline(text));
 	        	    }
 	        	  });
 	        	  alert.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -175,14 +175,14 @@ public class TrackerActivity extends TrackedActivity {
         spinner.setOnItemSelectedListener(new MySpinnerListener());
         
         final TextView tvTrackerSave = (TextView) findViewById(R.id.tvTrackerSave);
-        tvTrackerSave.setText(helper.underline(getResources().getString(R.string.save)));
+        tvTrackerSave.setText(Helper.underline(getResources().getString(R.string.save)));
         tvTrackerSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	submitData();
             }
         });
         TextView tvTrackerCancel = (TextView)findViewById(R.id.tvTrackerCancel);
-        tvTrackerCancel.setText(helper.underline(getResources().getString(R.string.cancel)));
+        tvTrackerCancel.setText(Helper.underline(getResources().getString(R.string.cancel)));
         tvTrackerCancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	finish();
@@ -195,10 +195,10 @@ public class TrackerActivity extends TrackedActivity {
     	        setEnabled(isChecked);
     	    }
     	});
-        tvTimerControl.setText(helper.underline(getResources().getString(R.string.start_timer)));
+        tvTimerControl.setText(Helper.underline(getResources().getString(R.string.start_timer)));
         tvTimerControl.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	utilDat.timerControl(TrackerActivity.this,etSecs,etMins,etHours,tvTimerControl);
+            	UtilDat.timerControl(TrackerActivity.this,etSecs,etMins,etHours,tvTimerControl);
             }
         });
     }
@@ -210,7 +210,7 @@ public class TrackerActivity extends TrackedActivity {
 		
 		DateTime c = DateTime.now();
 		t.setLastUpdate(c.getMillis());
-		c= helper.strToCal(tvStartDate.getText().toString(), tvStartTime.getText().toString());
+		c= Helper.strToCal(tvStartDate.getText().toString(), tvStartTime.getText().toString());
 		t.setNextReminder(c.getMillis());
 		t.submitData(this);
 		finish();
@@ -236,17 +236,17 @@ public class TrackerActivity extends TrackedActivity {
 	}
 	private void setView(){
 		//sets view from tracker
-		tvName.setText(helper.underline(t.getName()));
+		tvName.setText(Helper.underline(t.getName()));
 		spinner.setSelection(t.getType());
 		if (t.getReminderEnabled()>0)setEnabled(true);
 		else setEnabled(false);
-		tvNumReminders.setText(helper.underline(String.valueOf(t.getReminderFreq())));
+		tvNumReminders.setText(Helper.underline(String.valueOf(t.getReminderFreq())));
 		String strCycle = (String) items[t.getReminderCycle()];
-		tvRemindCycle.setText(helper.underline(strCycle));
+		tvRemindCycle.setText(Helper.underline(strCycle));
 		DateTime dt = new DateTime();
 		DateTime cal = dt.withMillis(t.getNextReminder());
-		tvStartTime.setText(helper.underline(helper.calToTime(cal)));
-		tvStartDate.setText(helper.underline(helper.calToDate(cal)));
+		tvStartTime.setText(Helper.underline(Helper.calToTime(cal)));
+		tvStartDate.setText(Helper.underline(Helper.calToDate(cal)));
 	}
 	private void findViewItems(){
 		tvName = (TextView) findViewById(R.id.tvName);
@@ -273,10 +273,10 @@ public class TrackerActivity extends TrackedActivity {
         TextView b3 = (TextView)findViewById(R.id.btnLogger);
         public void onItemSelected(AdapterView<?> parent,
             View view, int pos, long id) {
-        	utilDat.setInputControl(rlTimer, pos, tv, tv2, rb, sb, et, rg, b3);
+        	UtilDat.setInputControl(rlTimer, pos, tv, tv2, rb, sb, et, rg, b3);
         }
         public void onNothingSelected(AdapterView<?> parent) {
-        	utilDat.setInputControl(rlTimer,-1, tv, tv2, rb, sb, et, rg, b3);
+        	UtilDat.setInputControl(rlTimer,-1, tv, tv2, rb, sb, et, rg, b3);
         }
     }
 }

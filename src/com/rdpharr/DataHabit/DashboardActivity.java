@@ -16,7 +16,7 @@ public class DashboardActivity extends TrackedActivity {
         mDbHelper.open();
 	    
 	    //start reminder service
-        alarmMgr.startAlarm(this);
+        AlarmMgr.startAlarm(this);
 	 
 	    //attach event handler to dash buttons
 	    DashboardClickListener dBClickListener = new DashboardClickListener();
@@ -33,13 +33,13 @@ public class DashboardActivity extends TrackedActivity {
 	            	i = new Intent(DashboardActivity.this, TrackerListActivity.class);
 	                break;
 	            case R.id.dashboard_button_export:
-	            	i = new Intent(DashboardActivity.this, exportDataActivity.class);
+	            	i = new Intent(DashboardActivity.this, ExportDataActivity.class);
 	            	break;
 	            case R.id.dashboard_button_help:
-	            	i = new Intent(DashboardActivity.this, infoActivity.class);
+	            	i = new Intent(DashboardActivity.this, InfoActivity.class);
 	                break;
 	            case R.id.dashboard_button_settings:
-	            	i = new Intent(DashboardActivity.this, settingsActivity.class);
+	            	i = new Intent(DashboardActivity.this, SettingsActivity.class);
 	                break;
 	            default:
 	                break;

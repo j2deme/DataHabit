@@ -10,7 +10,7 @@ import android.database.Cursor;
 import android.os.Environment;
 import android.util.Log;
 
-public class fileHelper {
+public class FileHelper {
 	private static dbAdapter mDbHelper;
 	private static int trackerType;
 	public static String trackerCsvHeader(Context cxt){
@@ -31,8 +31,8 @@ public class fileHelper {
 		for (int i=0; i<d.getCount(); i++){
 			d.moveToPosition(i);
 			strCSV = strCSV + "\""+trackerName + "\","; 
-			strCSV = strCSV + "\""+helper.milliToStr(d.getLong(2))+ "\",";
-			strCSV = strCSV + utilDat.getValueString(ctx, trackerType,d.getFloat(3))+ ",";
+			strCSV = strCSV + "\""+Helper.milliToStr(d.getLong(2))+ "\",";
+			strCSV = strCSV + UtilDat.getValueString(ctx, trackerType,d.getFloat(3))+ ",";
 			strCSV = strCSV + "\""+d.getString(4)+ "\"\n";
 		}
 		d.close();

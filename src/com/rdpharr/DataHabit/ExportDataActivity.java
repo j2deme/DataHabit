@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
-public class exportDataActivity extends TrackedActivity {
+public class ExportDataActivity extends TrackedActivity {
 	private dbAdapter mDbHelper;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -16,13 +16,13 @@ public class exportDataActivity extends TrackedActivity {
         mDbHelper.open();
 		Cursor c = mDbHelper.fetchAllTrackers();
         startManagingCursor(c);
-        String strFile=fileHelper.trackerCsvHeader(this);
+        String strFile=FileHelper.trackerCsvHeader(this);
         for (int i=0; i<c.getCount(); i++){
         	c.moveToPosition(i);
         	int trackerID = c.getInt(0);
-        	strFile = strFile + fileHelper.trackerCsv(this, trackerID);
+        	strFile = strFile + FileHelper.trackerCsv(this, trackerID);
         }
-        String outFile = fileHelper.makeFile("data.csv", strFile);
+        String outFile = FileHelper.makeFile("data.csv", strFile);
       //send email
   		Intent email = new Intent(android.content.Intent.ACTION_SEND);
   		email.putExtra(Intent.EXTRA_SUBJECT, this.getString(R.string.eMailSubject)); 

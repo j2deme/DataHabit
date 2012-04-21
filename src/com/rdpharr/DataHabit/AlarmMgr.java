@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-public class alarmMgr extends BroadcastReceiver{
+public class AlarmMgr extends BroadcastReceiver{
 	public void onReceive(Context context, Intent intent) {
 	    Log.d("alarmMgr", "got broadcast!");
 	    startAlarm(context);

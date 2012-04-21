@@ -89,7 +89,7 @@ public class NotificationService extends IntentService {
 		Context context = getApplicationContext();
 		CharSequence contentTitle = getResources().getString(R.string.app_name);
 		CharSequence contentText = trackerName;
-		Intent i = new Intent(NotificationService.this, tabTrackerActivity.class);
+		Intent i = new Intent(NotificationService.this, TabTrackerActivity.class);
 		i.putExtra("TrackerRowID", trackerID);
 		i.putExtra("tabID", 0);
 		i.setAction("actionstring" + System.currentTimeMillis()); //used to make intent unique

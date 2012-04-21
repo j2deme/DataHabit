@@ -38,7 +38,7 @@ public class HistoryActivity extends TrackedListActivity {
         setContentView(R.layout.history_main);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         TextView tvEmail = (TextView)findViewById(R.id.tvEmail);
-        tvEmail.setText(helper.underline(this.getString(R.string.email_data)));
+        tvEmail.setText(Helper.underline(this.getString(R.string.email_data)));
         if (trackerID==0){
 
         }else{
@@ -86,12 +86,12 @@ public class HistoryActivity extends TrackedListActivity {
             		case 2:
 	            		long createDate = aCursor.getLong(aColumnIndex);
 	                    TextView tvDate = (TextView) aView;
-	                    tvDate.setText(helper.milliToStr(createDate));
+	                    tvDate.setText(Helper.milliToStr(createDate));
 	                    return true;
 	                case 3:
 	            		float value = aCursor.getFloat(aColumnIndex);
 	            		TextView tvValue = (TextView) aView;
-	            		tvValue.setText(utilDat.getValueString(HistoryActivity.this, trackerType, value));
+	            		tvValue.setText(UtilDat.getValueString(HistoryActivity.this, trackerType, value));
 	                    return true;
 	                default:
 	                	TextView tvComment = (TextView) aView;
@@ -105,8 +105,8 @@ public class HistoryActivity extends TrackedListActivity {
 	}
 	private void saveAndEmail() throws IOException{
 		//Make file
-		String strFile = fileHelper.trackerCsvHeader(this) +fileHelper.trackerCsv(this, trackerID);
-		String outFile = fileHelper.makeFile("data.csv", strFile);
+		String strFile = FileHelper.trackerCsvHeader(this) +FileHelper.trackerCsv(this, trackerID);
+		String outFile = FileHelper.makeFile("data.csv", strFile);
 		
 		//send email
 		Intent email = new Intent(android.content.Intent.ACTION_SEND);
@@ -162,7 +162,7 @@ public class HistoryActivity extends TrackedListActivity {
     }
     public void goToData(int position){
     	int dataRowID = dbHelper.getDataRowId(getApplicationContext(), trackerID, position);//c.getInt(0);
-    	Intent i = new Intent(HistoryActivity.this, tabTrackerActivity.class);
+    	Intent i = new Intent(HistoryActivity.this, TabTrackerActivity.class);
     	i.putExtra("TrackerRowID", trackerID);
     	i.putExtra("dataRowID", dataRowID);
     	HistoryActivity.this.startActivity(i);

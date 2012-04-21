@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class utilDat {
+public class UtilDat {
 	public static void setInputControl(
 			RelativeLayout rl, 
 			int pos, 
@@ -177,14 +177,14 @@ public class utilDat {
 			EditText etHours, TextView tvTimerControl) {
 		String control = tvTimerControl.getText().toString();
 		if (control ==  ctx.getString(R.string.start_timer)){
-			tvTimerControl.setText(helper.underline(ctx.getString(R.string.stop_timer)));
+			tvTimerControl.setText(Helper.underline(ctx.getString(R.string.stop_timer)));
 			global_etSecs = etSecs;
 			global_etMins = etMins;
 			global_etHours = etHours;
         	startTime = getTimerValue(etSecs,etMins,etHours);
    			mHandler.sendEmptyMessage(MSG_START_TIMER);
    		}else{
-   			tvTimerControl.setText(helper.underline(ctx.getString(R.string.start_timer)));
+   			tvTimerControl.setText(Helper.underline(ctx.getString(R.string.start_timer)));
 			mHandler.sendEmptyMessage(MSG_STOP_TIMER);
 		}
 	}

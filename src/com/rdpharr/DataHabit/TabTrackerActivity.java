@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.TabHost;
 
 @SuppressWarnings("deprecation")
-public class tabTrackerActivity extends TabActivity {
+public class TabTrackerActivity extends TabActivity {
 	private int trackerID;
 	private int tabID;
 	private int dataID;

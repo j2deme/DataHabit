@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
-public class settingsActivity extends TrackedActivity {
+public class SettingsActivity extends TrackedActivity {
 	private CheckBox sound;
 	private CheckBox vibrate;
 	private TextView customSound;
@@ -35,7 +35,7 @@ public class settingsActivity extends TrackedActivity {
 		sound = (CheckBox) findViewById(R.id.notification_sound);
 		vibrate = (CheckBox) findViewById(R.id.notification_vibrate);
 		customSound = (TextView) findViewById(R.id.tvCustomSound);
-		customSound.setText(helper.underline(getResources().getString(R.string.custom_sound)));
+		customSound.setText(Helper.underline(getResources().getString(R.string.custom_sound)));
 	}
 	private void setDefaults(){
 		SharedPreferences settings = getSharedPreferences("notifications", 0);
@@ -89,14 +89,14 @@ public class settingsActivity extends TrackedActivity {
             }
         });
         final TextView tvTrackerSave = (TextView) findViewById(R.id.tvTrackerSave);
-        tvTrackerSave.setText(helper.underline("Save"));
+        tvTrackerSave.setText(Helper.underline("Save"));
         tvTrackerSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	submitData();
             }
         });
         TextView tvTrackerCancel = (TextView)findViewById(R.id.tvTrackerCancel);
-        tvTrackerCancel.setText(helper.underline("Cancel"));
+        tvTrackerCancel.setText(Helper.underline("Cancel"));
         tvTrackerCancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	finish();

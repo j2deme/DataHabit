@@ -35,10 +35,10 @@ public class TrackerListActivity extends TrackedListActivity {
         fillList();
                 
         final TextView tvNewMonitor = (TextView) findViewById(R.id.tvNewMonitor);
-        tvNewMonitor.setText(helper.underline(this.getString(R.string.new_tracker)));
+        tvNewMonitor.setText(Helper.underline(this.getString(R.string.new_tracker)));
         tvNewMonitor.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	Intent i = new Intent(TrackerListActivity.this, tabTrackerActivity.class);
+            	Intent i = new Intent(TrackerListActivity.this, TabTrackerActivity.class);
             	i.putExtra("tabID", 1);
             	TrackerListActivity.this.startActivity(i);
             }
@@ -104,13 +104,13 @@ public class TrackerListActivity extends TrackedListActivity {
         }
     }
     public void goToTracker (int position){
-    	Intent i = new Intent(TrackerListActivity.this, tabTrackerActivity.class);
+    	Intent i = new Intent(TrackerListActivity.this, TabTrackerActivity.class);
     	i.putExtra("TrackerRowID", getTrackerId(position));
     	i.putExtra("tabID", 1);
     	TrackerListActivity.this.startActivity(i);
     }
     public void goToLogger(int position){
-    	Intent i = new Intent(TrackerListActivity.this, tabTrackerActivity.class);
+    	Intent i = new Intent(TrackerListActivity.this, TabTrackerActivity.class);
     	i.putExtra("TrackerRowID", getTrackerId(position));//
     	i.putExtra("tabID", 0);
     	TrackerListActivity.this.startActivity(i);
@@ -120,7 +120,7 @@ public class TrackerListActivity extends TrackedListActivity {
     	t.delete(this);
     }
     public void goToHistory(int position){
-    	Intent i = new Intent(TrackerListActivity.this, tabTrackerActivity.class);
+    	Intent i = new Intent(TrackerListActivity.this, TabTrackerActivity.class);
     	i.putExtra("TrackerRowID", getTrackerId(position));//
     	i.putExtra("tabID", 2);
     	TrackerListActivity.this.startActivity(i);

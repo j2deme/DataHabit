@@ -7,7 +7,7 @@ import org.joda.time.format.DateTimeFormatter;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 
-public class helper {
+public class Helper {
 	public static SpannableString underline(String s){
 		SpannableString content = new SpannableString(s);
 		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);

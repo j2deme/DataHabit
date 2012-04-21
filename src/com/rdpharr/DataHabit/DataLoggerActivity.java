@@ -69,13 +69,13 @@ public class DataLoggerActivity extends TrackedActivity {
 	        
 	    	//setup form with correct control
 	        type = c.getInt(2);
-	        utilDat.setInputControl(rlTimer, type, null, null, rb, sb, et, rg, b3);
+	        UtilDat.setInputControl(rlTimer, type, null, null, rb, sb, et, rg, b3);
 	        //populate values if edit activity
 	        if (dataRowID>0){
 	        	populateValues();
 	        	//update data button
 	            final TextView tvDataSave = (TextView) findViewById(R.id.tvDataSave);
-	            tvDataSave.setText(helper.underline(this.getString(R.string.update)));
+	            tvDataSave.setText(Helper.underline(this.getString(R.string.update)));
 	            tvDataSave.setOnClickListener(new View.OnClickListener() {
 	                public void onClick(View v) {
 	                	updateData(dataRowID,type,trackerID);
@@ -90,12 +90,12 @@ public class DataLoggerActivity extends TrackedActivity {
 	        }else{
 	            //set default values
 	        	DateTime cal = DateTime.now();
-	    		tvStartTime.setText(helper.underline(helper.calToTime(cal)));
-	    		tvStartDate.setText(helper.underline(helper.calToDate(cal)));
+	    		tvStartTime.setText(Helper.underline(Helper.calToTime(cal)));
+	    		tvStartDate.setText(Helper.underline(Helper.calToDate(cal)));
 	        	
 	    		//submit data button
 	            final TextView tvDataSave = (TextView) findViewById(R.id.tvDataSave);
-	            tvDataSave.setText(helper.underline(getResources().getString(R.string.save)));
+	            tvDataSave.setText(Helper.underline(getResources().getString(R.string.save)));
 	            tvDataSave.setOnClickListener(new View.OnClickListener() {
 	                public void onClick(View v) {
 	                	submitData(type,trackerID);
@@ -109,17 +109,17 @@ public class DataLoggerActivity extends TrackedActivity {
 	            });
 	        }
 	        TextView tvDataCancel = (TextView)findViewById(R.id.TvDataCancel);
-	        tvDataCancel.setText(helper.underline(getResources().getString(R.string.cancel)));
+	        tvDataCancel.setText(Helper.underline(getResources().getString(R.string.cancel)));
 	        tvDataCancel.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
 	            	mDbHelper.close();
 	            	finish();
 	            }
 	        });
-	        tvTimerControl.setText(helper.underline(getResources().getString(R.string.start_timer)));
+	        tvTimerControl.setText(Helper.underline(getResources().getString(R.string.start_timer)));
 	        tvTimerControl.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
-	            	utilDat.timerControl(DataLoggerActivity.this,etSecs,etMins,etHours,tvTimerControl);
+	            	UtilDat.timerControl(DataLoggerActivity.this,etSecs,etMins,etHours,tvTimerControl);
 	            }
 	        });
 			tvStartDate.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +132,7 @@ public class DataLoggerActivity extends TrackedActivity {
 		        	    DatePickerDialog dtDialog = new DatePickerDialog(DataLoggerActivity.this, new DatePickerDialog.OnDateSetListener() {
 	    	                public void onDateSet(DatePicker view, int year, 
 	                                int monthOfYear, int dayOfMonth) {
-	    	                	tvStartDate.setText(helper.underline(
+	    	                	tvStartDate.setText(Helper.underline(
 	    	                			String.valueOf(year) +
 	    	                			"-" +
 	    	                			String.valueOf(monthOfYear+1)+
@@ -153,7 +153,7 @@ public class DataLoggerActivity extends TrackedActivity {
 		        	    TimePickerDialog tpDialog = new TimePickerDialog(DataLoggerActivity.this, new TimePickerDialog.OnTimeSetListener() {
 	        	                public void onTimeSet(android.widget.TimePicker view,
 	        	                        int hourOfDay, int minute) {
-	        	                	tvStartTime.setText(helper.underline(
+	        	                	tvStartTime.setText(Helper.underline(
 	        	                			String.valueOf(hourOfDay) +":" 
 	        	                			+ String.valueOf(String.format("%02d",minute))));
 	        	                }
@@ -183,21 +183,21 @@ public class DataLoggerActivity extends TrackedActivity {
 	private void populateValues(){
 		Cursor c = mDbHelper.fetchData(dataRowID);
 		submitDate = c.getLong(2);
-		utilDat.setValue(etSecs, etMins, etHours, type,c.getFloat(3),rb, sb, et, rg, b3);
+		UtilDat.setValue(etSecs, etMins, etHours, type,c.getFloat(3),rb, sb, et, rg, b3);
 		EditText etComment = (EditText)findViewById(R.id.etComment);
 		etComment.setText(c.getString(4));
 		DateTime dt = new DateTime();
 		DateTime cal = dt.withMillis(submitDate);
-		tvStartTime.setText(helper.underline(helper.calToTime(cal)));
-		tvStartDate.setText(helper.underline(helper.calToDate(cal)));
+		tvStartTime.setText(Helper.underline(Helper.calToTime(cal)));
+		tvStartDate.setText(Helper.underline(Helper.calToDate(cal)));
 	}
 	private void submitData(int type, int trackerID){
 		EditText etComment = (EditText)findViewById(R.id.etComment);
 		String comment = etComment.getText().toString();
-		double value = utilDat.getValue(etSecs, etMins, etHours, type,rb, sb, et, rg, b3);
+		double value = UtilDat.getValue(etSecs, etMins, etHours, type,rb, sb, et, rg, b3);
 		
 		DateTime c = new DateTime();
-		c= helper.strToCal(tvStartDate.getText().toString(), tvStartTime.getText().toString());
+		c= Helper.strToCal(tvStartDate.getText().toString(), tvStartTime.getText().toString());
 		long dataTime = c.getMillis();
 		
 		mDbHelper.createData(
@@ -211,10 +211,10 @@ public class DataLoggerActivity extends TrackedActivity {
 	private void updateData(int rowId,int type, int trackerID){
 		EditText etComment = (EditText)findViewById(R.id.etComment);
 		String comment = etComment.getText().toString();
-		double value = utilDat.getValue(etSecs, etMins, etHours, type,rb, sb, et, rg, b3);
+		double value = UtilDat.getValue(etSecs, etMins, etHours, type,rb, sb, et, rg, b3);
 		
 		DateTime c = new DateTime();
-		c= helper.strToCal(tvStartDate.getText().toString(), tvStartTime.getText().toString());
+		c= Helper.strToCal(tvStartDate.getText().toString(), tvStartTime.getText().toString());
 		long dataTime = c.getMillis();
 		
 		mDbHelper.updateData(rowId,
