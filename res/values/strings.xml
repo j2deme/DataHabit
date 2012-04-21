@@ -74,7 +74,6 @@
     <string name="settings_saved">Settings Saved</string>
     <string name="delete_data_dialog">Are you sure you want to delete this item?</string>
     <string name="delete_tracker_dialog">Are you sure you want to delete this tracker?</string>
-    <string name="data_updated">Data Updated</string>
     <string name="data_saved">Data Saved</string>
     <string name="minutes">Minutes</string>
     <string name="seconds">Seconds</string>
@@ -82,6 +81,5 @@
     <string name="timer_description">Use this control if you want to record a time value or use the stopwatch feature</string>
     <string name="start_timer">Start Timer</string>
     <string name="stop_timer">Stop Timer</string>
-    <string name="update">Update</string>
     <string name="custom_sound">Set Notification Sound</string>
 </resources>

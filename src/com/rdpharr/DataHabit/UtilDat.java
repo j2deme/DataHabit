@@ -66,7 +66,7 @@ public class UtilDat {
 			EditText etMins,
 			EditText etHours,
 			int type, 
-			float value, 
+			double value, 
 			RatingBar rb,
 			SeekBar sb, 
 			EditText et,
@@ -74,7 +74,7 @@ public class UtilDat {
 			TextView b3){
 		switch (type) {
 	    	case 0:
-	    		rb.setRating(value);
+	    		rb.setRating((float) value);
 	    		break;
 	    	case 1:
 	    		sb.setProgress((int) value);

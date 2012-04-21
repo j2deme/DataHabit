@@ -1,13 +1,9 @@
 package com.rdpharr.DataHabit;
 
-import java.util.Calendar;
-
 import org.joda.time.DateTime;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,7 +11,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,24 +19,20 @@ import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
 
 public class DataLoggerActivity extends TrackedActivity {
-	private dbAdapter mDbHelper;
 	private RatingBar rb;
 	private SeekBar sb;
 	private EditText et;
 	private RadioGroup rg;
 	private TextView b3;
-	private int trackerID;
-	private int dataRowID;
+	private int trackerID, dataRowID;
 	private int type;
-	private long submitDate;
-	private TextView tvStartTime;
-	private TextView tvStartDate;
+	private TextView tvStartTime, tvStartDate;
 	private TextView title;
-	private EditText etSecs;
-	private EditText etMins;
-	private EditText etHours;
-	private RelativeLayout rlTimer;
+	private EditText etSecs, etMins, etHours;
 	private TextView tvTimerControl;
+	private EditText etComment;
+	private Tracker t;
+	private DataPoint d;
 		
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,61 +49,36 @@ public class DataLoggerActivity extends TrackedActivity {
         	setContentView(R.layout.data_logger);
 	        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	        getControls();
-	        //get tracker info
-	        mDbHelper = new dbAdapter(this);
-	        mDbHelper.open();
-	        Cursor c = mDbHelper.fetchTracker(trackerID);
-	        startManagingCursor(c);
-	        //COLUMNS: RowID(0), name(1), type(2), freq, color, nextreminder, icon, lastupdate(7)
-	        
-	        title.setText(c.getString(1)); //setup form title
-	        
-	    	//setup form with correct control
-	        type = c.getInt(2);
-	        UtilDat.setInputControl(rlTimer, type, null, null, rb, sb, et, rg, b3);
-	        //populate values if edit activity
-	        if (dataRowID>0){
-	        	populateValues();
-	        	//update data button
-	            final TextView tvDataSave = (TextView) findViewById(R.id.tvDataSave);
-	            tvDataSave.setText(Helper.underline(this.getString(R.string.update)));
-	            tvDataSave.setOnClickListener(new View.OnClickListener() {
-	                public void onClick(View v) {
-	                	updateData(dataRowID,type,trackerID);
-	                	Toast toast = Toast.makeText(getApplicationContext(),
-	                			getResources().getString(R.string.data_updated),
-	                			Toast.LENGTH_SHORT);
-	                	toast.show();
-	                	mDbHelper.close();
-	                	finish();
-	                }
-	            });
-	        }else{
-	            //set default values
-	        	DateTime cal = DateTime.now();
-	    		tvStartTime.setText(Helper.underline(Helper.calToTime(cal)));
-	    		tvStartDate.setText(Helper.underline(Helper.calToDate(cal)));
-	        	
-	    		//submit data button
-	            final TextView tvDataSave = (TextView) findViewById(R.id.tvDataSave);
-	            tvDataSave.setText(Helper.underline(getResources().getString(R.string.save)));
-	            tvDataSave.setOnClickListener(new View.OnClickListener() {
-	                public void onClick(View v) {
-	                	submitData(type,trackerID);
-	                	Toast toast = Toast.makeText(getApplicationContext(),
-	                			getResources().getString(R.string.data_saved), 
-	                			Toast.LENGTH_SHORT);
-	                	toast.show();
-	                	mDbHelper.close();
-	                	finish();
-	                }
-	            });
-	        }
+	        t = new Tracker(this, trackerID);
+	        d = new DataPoint(this,trackerID,dataRowID);
+			
+	        //setup form data
+	        title.setText(t.getName());
+	        UtilDat.setValue(etSecs, etMins, etHours, t.getType(),d.getValue(),rb, sb, et, rg, b3);
+			etComment.setText(d.getComment());
+			DateTime time = new DateTime(d.getTime());
+			tvStartTime.setText(Helper.underline(Helper.calToTime(time)));
+			tvStartDate.setText(Helper.underline(Helper.calToDate(time)));
+
+			final TextView tvDataSave = (TextView) findViewById(R.id.tvDataSave);
+            tvDataSave.setText(Helper.underline(this.getString(R.string.save)));
+            tvDataSave.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+            		d.setComment(etComment.getText().toString());
+            		d.setValue((float) UtilDat.getValue(etSecs, etMins, etHours, type,rb, sb, et, rg, b3));
+            		d.setTime(Helper.strToMillis(tvStartDate.getText().toString(), tvStartTime.getText().toString()));
+                	d.submitData(DataLoggerActivity.this);
+                	Toast toast = Toast.makeText(getApplicationContext(),
+                			getResources().getString(R.string.data_saved),
+                			Toast.LENGTH_SHORT);
+                	toast.show();
+                	finish();
+                }
+            });
 	        TextView tvDataCancel = (TextView)findViewById(R.id.TvDataCancel);
 	        tvDataCancel.setText(Helper.underline(getResources().getString(R.string.cancel)));
 	        tvDataCancel.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
-	            	mDbHelper.close();
 	            	finish();
 	            }
 	        });
@@ -176,54 +142,7 @@ public class DataLoggerActivity extends TrackedActivity {
     	etSecs = (EditText)findViewById(R.id.etSecs);
     	etMins = (EditText)findViewById(R.id.etMins);
     	etHours = (EditText)findViewById(R.id.etHours);
-    	rlTimer = (RelativeLayout)findViewById(R.id.rlTimer); 
     	tvTimerControl = (TextView)findViewById(R.id.tvTimerControl);
+    	etComment = (EditText)findViewById(R.id.etComment);
 	}
-
-	private void populateValues(){
-		Cursor c = mDbHelper.fetchData(dataRowID);
-		submitDate = c.getLong(2);
-		UtilDat.setValue(etSecs, etMins, etHours, type,c.getFloat(3),rb, sb, et, rg, b3);
-		EditText etComment = (EditText)findViewById(R.id.etComment);
-		etComment.setText(c.getString(4));
-		DateTime dt = new DateTime();
-		DateTime cal = dt.withMillis(submitDate);
-		tvStartTime.setText(Helper.underline(Helper.calToTime(cal)));
-		tvStartDate.setText(Helper.underline(Helper.calToDate(cal)));
-	}
-	private void submitData(int type, int trackerID){
-		EditText etComment = (EditText)findViewById(R.id.etComment);
-		String comment = etComment.getText().toString();
-		double value = UtilDat.getValue(etSecs, etMins, etHours, type,rb, sb, et, rg, b3);
-		
-		DateTime c = new DateTime();
-		c= Helper.strToCal(tvStartDate.getText().toString(), tvStartTime.getText().toString());
-		long dataTime = c.getMillis();
-		
-		mDbHelper.createData(
-				trackerID, 
-				dataTime, 
-				value, 
-				comment, 
-				Calendar.getInstance().getTimeInMillis()
-				);
-	}
-	private void updateData(int rowId,int type, int trackerID){
-		EditText etComment = (EditText)findViewById(R.id.etComment);
-		String comment = etComment.getText().toString();
-		double value = UtilDat.getValue(etSecs, etMins, etHours, type,rb, sb, et, rg, b3);
-		
-		DateTime c = new DateTime();
-		c= Helper.strToCal(tvStartDate.getText().toString(), tvStartTime.getText().toString());
-		long dataTime = c.getMillis();
-		
-		mDbHelper.updateData(rowId,
-				trackerID, 
-				dataTime,
-				value, 
-				comment, 
-				Calendar.getInstance().getTimeInMillis()
-				);
-	}
-
 }

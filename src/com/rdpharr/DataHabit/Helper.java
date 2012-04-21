@@ -31,6 +31,12 @@ public class Helper {
 		c = sdf.parseDateTime(d+" "+t);
 		return c;
 	}
+	public static long strToMillis (String d, String t){
+		DateTime c;
+		DateTimeFormatter sdf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
+		c = sdf.parseDateTime(d+" "+t);
+		return c.getMillis();
+	}
 	public static String milliToStr (long milli){
 		DateTime c = new DateTime().withMillis(milli);
 		String s = c.toString("yyyy-MM-dd HH:mm:ss");
