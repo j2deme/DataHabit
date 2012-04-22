@@ -31,8 +31,6 @@ public class HistoryActivity extends TrackedListActivity {
 	private int trackerType;
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDbHelper = new dbAdapter(this);
-        mDbHelper.open();
         Intent i = getIntent();
         trackerID = i.getIntExtra("TrackerRowID", 0);
         setContentView(R.layout.history_main);
@@ -58,7 +56,8 @@ public class HistoryActivity extends TrackedListActivity {
 	        tvChart.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
 	            	HistoryChart h = new HistoryChart(HistoryActivity.this, trackerID);
-	            	h.showChart(HistoryActivity.this);
+	            	Intent i = h.showChart(HistoryActivity.this);
+	            	HistoryActivity.this.startActivity(i);
 	            }
 	        });
 	        

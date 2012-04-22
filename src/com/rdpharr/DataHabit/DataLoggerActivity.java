@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ public class DataLoggerActivity extends TrackedActivity {
 	private RadioGroup rg;
 	private TextView b3;
 	private int trackerID, dataRowID;
+	private RelativeLayout rlTimer;
 	private int type;
 	private TextView tvStartTime, tvStartDate;
 	private TextView title;
@@ -42,8 +44,8 @@ public class DataLoggerActivity extends TrackedActivity {
         dataRowID = i.getIntExtra("dataRowID", 0);
         
         //timer control for orientation changes
-        boolean timerRunning = savedInstanceState.getBoolean("timerRunning", false);
-        if (timerRunning) UtilDat.timerControl(DataLoggerActivity.this,etSecs,etMins,etHours,tvTimerControl);
+        //boolean timerRunning = savedInstanceState.getBoolean("timerRunning", false);
+        //if (timerRunning) UtilDat.timerControl(DataLoggerActivity.this,etSecs,etMins,etHours,tvTimerControl);
 		
         if (trackerID==0){
         	TextView tv = new TextView(this);
@@ -58,7 +60,8 @@ public class DataLoggerActivity extends TrackedActivity {
 			
 	        //setup form data
 	        title.setText(t.getName());
-	        UtilDat.setValue(etSecs, etMins, etHours, t.getType(),d.getValue(),rb, sb, et, rg, b3);
+	        UtilDat.setInputControl(rlTimer, type, null, null, rb, sb, et, rg, b3);
+		    UtilDat.setValue(etSecs, etMins, etHours, t.getType(),d.getValue(),rb, sb, et, rg, b3);
 			etComment.setText(d.getComment());
 			DateTime time = new DateTime(d.getTime());
 			tvStartTime.setText(Helper.underline(Helper.calToTime(time)));
@@ -148,6 +151,7 @@ public class DataLoggerActivity extends TrackedActivity {
     	etHours = (EditText)findViewById(R.id.etHours);
     	tvTimerControl = (TextView)findViewById(R.id.tvTimerControl);
     	etComment = (EditText)findViewById(R.id.etComment);
+    	rlTimer = (RelativeLayout)findViewById(R.id.rlTimer); 
 	}
 	protected void onSaveInstanceState(Bundle outState) {
 	    super.onSaveInstanceState(outState);
