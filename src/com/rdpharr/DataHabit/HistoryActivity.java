@@ -37,8 +37,6 @@ public class HistoryActivity extends TrackedListActivity {
         trackerID = i.getIntExtra("TrackerRowID", 0);
         setContentView(R.layout.history_main);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        TextView tvEmail = (TextView)findViewById(R.id.tvEmail);
-        tvEmail.setText(Helper.underline(this.getString(R.string.email_data)));
         if (trackerID==0){
 
         }else{
@@ -55,7 +53,17 @@ public class HistoryActivity extends TrackedListActivity {
 	            	goToData(position);
 	            }
 	          });
-	                
+	        TextView tvChart = (TextView)findViewById(R.id.tvChart);
+	        tvChart.setText(Helper.underline(this.getString(R.string.Chart)));
+	        tvChart.setOnClickListener(new View.OnClickListener() {
+	            public void onClick(View v) {
+	            	HistoryChart h = new HistoryChart(HistoryActivity.this, trackerID);
+	            	h.showChart(HistoryActivity.this);
+	            }
+	        });
+	        
+	        TextView tvEmail = (TextView)findViewById(R.id.tvEmail);
+	        tvEmail.setText(Helper.underline(this.getString(R.string.email_data)));
 	        tvEmail.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
 					try {

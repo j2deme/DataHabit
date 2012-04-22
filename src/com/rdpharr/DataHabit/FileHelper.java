@@ -52,5 +52,4 @@ public class FileHelper {
         String returnVal = "file:///mnt/sdcard/" + fileName;
         return returnVal;
 	}
-
 }
