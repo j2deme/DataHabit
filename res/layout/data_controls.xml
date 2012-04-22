@@ -98,8 +98,8 @@
 		        android:id="@+id/tvTimerControl"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:layout_alignBottom="@+id/etSecs"
-		        android:layout_alignParentRight="true"
+		        android:layout_below="@+id/tvHours"
+		        android:layout_alignParentLeft="true"
 		        android:clickable="true"
 		        android:textAppearance="?android:attr/textAppearanceLarge" />
 	</RelativeLayout>

@@ -33,6 +33,7 @@ public class DataLoggerActivity extends TrackedActivity {
 	private EditText etComment;
 	private Tracker t;
 	private DataPoint d;
+	boolean timerRunning;
 		
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +41,10 @@ public class DataLoggerActivity extends TrackedActivity {
         trackerID = i.getIntExtra("TrackerRowID", 0);
         dataRowID = i.getIntExtra("dataRowID", 0);
         
-		       
+        //timer control for orientation changes
+        boolean timerRunning = savedInstanceState.getBoolean("timerRunning", false);
+        if (timerRunning) UtilDat.timerControl(DataLoggerActivity.this,etSecs,etMins,etHours,tvTimerControl);
+		
         if (trackerID==0){
         	TextView tv = new TextView(this);
         	tv.setText(this.getString(R.string.no_monitors));
@@ -144,5 +148,9 @@ public class DataLoggerActivity extends TrackedActivity {
     	etHours = (EditText)findViewById(R.id.etHours);
     	tvTimerControl = (TextView)findViewById(R.id.tvTimerControl);
     	etComment = (EditText)findViewById(R.id.etComment);
+	}
+	protected void onSaveInstanceState(Bundle outState) {
+	    super.onSaveInstanceState(outState);
+	    outState.putBoolean("timerRunning", timerRunning);
 	}
 }
