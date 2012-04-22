@@ -59,7 +59,6 @@ public class SettingsActivity extends TrackedActivity {
 			editor.putInt("vibrate", 0);
 		}
 		editor.putString("soundUri", soundUri);
-		Log.d("put soundUri",soundUri);
 		editor.commit();
 		Toast toast = Toast.makeText(getApplicationContext(), 
 				getResources().getString(R.string.settings_saved), 
