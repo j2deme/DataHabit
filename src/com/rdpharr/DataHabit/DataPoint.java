@@ -57,7 +57,7 @@ public class DataPoint {
         Cursor c = mDbHelper.fetchData(id);
         time=c.getLong(2);
         value=c.getFloat(3);
-        comment=c.getColumnName(4);
+        comment=c.getString(4);
         updateTime=c.getLong(5);
     }
 	
