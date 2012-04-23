@@ -27,7 +27,6 @@ public class DataLoggerActivity extends TrackedActivity {
 	private TextView b3;
 	private int trackerID, dataRowID;
 	private RelativeLayout rlTimer;
-	private int type;
 	private TextView tvStartTime, tvStartDate;
 	private TextView title;
 	private EditText etSecs, etMins, etHours;
@@ -60,7 +59,7 @@ public class DataLoggerActivity extends TrackedActivity {
 			
 	        //setup form data
 	        title.setText(t.getName());
-	        UtilDat.setInputControl(rlTimer, type, null, null, rb, sb, et, rg, b3);
+	        UtilDat.setInputControl(rlTimer, t.getType(), null, null, rb, sb, et, rg, b3);
 		    UtilDat.setValue(etSecs, etMins, etHours, t.getType(),d.getValue(),rb, sb, et, rg, b3);
 			etComment.setText(d.getComment());
 			DateTime time = new DateTime(d.getTime());
@@ -72,7 +71,7 @@ public class DataLoggerActivity extends TrackedActivity {
             tvDataSave.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
             		d.setComment(etComment.getText().toString());
-            		d.setValue((float) UtilDat.getValue(etSecs, etMins, etHours, type,rb, sb, et, rg, b3));
+            		d.setValue((float) UtilDat.getValue(etSecs, etMins, etHours, t.getType(),rb, sb, et, rg, b3));
             		d.setTime(Helper.strToMillis(tvStartDate.getText().toString(), tvStartTime.getText().toString()));
                 	d.submitData(DataLoggerActivity.this);
                 	Toast toast = Toast.makeText(getApplicationContext(),

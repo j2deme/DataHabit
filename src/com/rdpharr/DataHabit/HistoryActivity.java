@@ -29,6 +29,7 @@ public class HistoryActivity extends TrackedListActivity {
 	private dbAdapter mDbHelper;
 	private int trackerID;
 	private int trackerType;
+	Tracker t;
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent i = getIntent();
@@ -38,8 +39,9 @@ public class HistoryActivity extends TrackedListActivity {
         if (trackerID==0){
 
         }else{
-	        trackerType = dbHelper.getTrackerType(getApplicationContext(), trackerID);
-	        
+        	t=new Tracker(this, trackerID);
+        	trackerType = t.getType();
+        	
 	        fillList();
 	        
 	        //context menu
@@ -52,6 +54,9 @@ public class HistoryActivity extends TrackedListActivity {
 	            }
 	          });
 	        TextView tvChart = (TextView)findViewById(R.id.tvChart);
+	        if (trackerType==3 || trackerType==4){
+	        	tvChart.setVisibility(8);//gone
+	        }
 	        tvChart.setText(Helper.underline(this.getString(R.string.Chart)));
 	        tvChart.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
@@ -161,14 +166,25 @@ public class HistoryActivity extends TrackedListActivity {
         }
     }
     public void deletePoint(int position){
+    	mDbHelper = new dbAdapter(this);
+        mDbHelper.open();
     	Cursor c = mDbHelper.fetchAllData(trackerID);
         startManagingCursor(c);
         c.moveToPosition(position);
     	int dataRowID = c.getInt(0);
     	mDbHelper.deleteData(dataRowID);
+    	c.close();
+    	mDbHelper.close();
     }
     public void goToData(int position){
-    	int dataRowID = dbHelper.getDataRowId(getApplicationContext(), trackerID, position);//c.getInt(0);
+    	mDbHelper = new dbAdapter(this);
+        mDbHelper.open();
+    	Cursor c = mDbHelper.fetchAllData(trackerID);
+        c.moveToPosition(position);
+    	int dataRowID = c.getInt(0);
+    	c.close();
+    	mDbHelper.close();
+    	
     	Intent i = new Intent(HistoryActivity.this, TabTrackerActivity.class);
     	i.putExtra("TrackerRowID", trackerID);
     	i.putExtra("dataRowID", dataRowID);
