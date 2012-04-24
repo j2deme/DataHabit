@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -42,10 +43,6 @@ public class DataLoggerActivity extends TrackedActivity {
         trackerID = i.getIntExtra("TrackerRowID", 0);
         dataRowID = i.getIntExtra("dataRowID", 0);
         
-        //timer control for orientation changes
-        //boolean timerRunning = savedInstanceState.getBoolean("timerRunning", false);
-        //if (timerRunning) UtilDat.timerControl(DataLoggerActivity.this,etSecs,etMins,etHours,tvTimerControl);
-		
         if (trackerID==0){
         	TextView tv = new TextView(this);
         	tv.setText(this.getString(R.string.no_monitors));
@@ -78,19 +75,30 @@ public class DataLoggerActivity extends TrackedActivity {
                 			getResources().getString(R.string.data_saved),
                 			Toast.LENGTH_SHORT);
                 	toast.show();
-                	finish();
+                	//in case orientation is locked
+	            	DataLoggerActivity.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+	            	finish();
                 }
             });
 	        TextView tvDataCancel = (TextView)findViewById(R.id.TvDataCancel);
 	        tvDataCancel.setText(Helper.underline(getResources().getString(R.string.cancel)));
 	        tvDataCancel.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
+	            	//in case orientation is locked
+	            	DataLoggerActivity.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 	            	finish();
 	            }
 	        });
 	        tvTimerControl.setText(Helper.underline(getResources().getString(R.string.start_timer)));
 	        tvTimerControl.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
+	            	//freeze/unfreeze orientation so timer doesn't stop unexpectedly
+	            	int orientation = DataLoggerActivity.this.getRequestedOrientation();
+	            	if(orientation == ActivityInfo.SCREEN_ORIENTATION_NOSENSOR){
+	            		DataLoggerActivity.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+	            	}else{
+	            		DataLoggerActivity.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+	            	}
 	            	UtilDat.timerControl(DataLoggerActivity.this,etSecs,etMins,etHours,tvTimerControl);
 	            }
 	        });
