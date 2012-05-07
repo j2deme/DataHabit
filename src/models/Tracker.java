@@ -1,6 +1,10 @@
-package com.rdpharr.DataHabit;
+package models;
 
 import org.joda.time.DateTime;
+
+import com.rdpharr.DataHabit.R;
+import com.rdpharr.DataHabit.R.string;
+
 import android.content.Context;
 import android.database.Cursor;
 

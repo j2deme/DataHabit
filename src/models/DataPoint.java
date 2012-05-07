@@ -1,6 +1,8 @@
-package com.rdpharr.DataHabit;
+package models;
 
 import org.joda.time.DateTime;
+
+
 import android.content.Context;
 import android.database.Cursor;
 /**
@@ -30,6 +32,108 @@ public class DataPoint {
 		else getFromDb(ctx);
 	}
 	/**
+	 * user entered comment for the data point
+	 * @return comment
+	 */
+	public String getComment() {
+		return comment;
+	}
+	/** 
+	 * Gets values for data point form database
+	 * @param ctx	Activity Context
+	 */
+	private void getFromDb(Context ctx){
+		mDbHelper = new dbAdapter(ctx);
+        mDbHelper.open();
+        Cursor c = mDbHelper.fetchData(id);
+        time=c.getLong(2);
+        value=c.getFloat(3);
+        comment=c.getString(4);
+        updateTime=c.getLong(5);
+    }
+	/**
+	 * gets unique id for data point
+	 * @return unique id for data point
+	 */
+	public int getId() {
+		return id;
+	}
+	/**
+	 * gets time displayed for data point
+	 * @return time in millis
+	 */
+	public long getTime() {
+		return time;
+	}
+	/**
+	 * gets unique id of Tracker associated with this data point
+	 * @return tracker id
+	 */
+	public int getTrackerId() {
+		return trackerId;
+	}
+	/**
+	 * system generated time data was set in database
+	 * @return time in millis
+	 */
+	public long getUpdateTime() {
+		return updateTime;
+	}
+	/**
+	 * gets user entered value/number associated with data point
+	 * @return value
+	 */
+	public double getValue() {
+		return value;
+	}
+	/**
+	 * user entered comment for the data point
+	 * @param comment
+	 */
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	/**
+	 * Sets default values for data point
+	 * value=0, date/time=now, comment=""
+	 * @param ctx	Activity Context
+	 */
+	private void setDefaults(Context ctx){
+		DateTime dt = new DateTime();
+		time=dt.getMillis();
+		value=0;
+		comment="";
+		updateTime=dt.getMillis();
+	}
+	/**
+	 * sets time associated with the data point
+	 * @param time time in millis
+	 */
+	public void setTime(long time) {
+		this.time = time;
+	}
+	/**
+	 * sets unique id of tracker associated with this data point
+	 * @param trackerId unique id of tracker
+	 */
+	public void setTrackerId(int trackerId) {
+		this.trackerId = trackerId;
+	}
+	/**
+	 * system generated time data was set in database
+	 * @param updateTime time in millis
+	 */
+	public void setUpdateTime(long updateTime) {
+		this.updateTime = updateTime;
+	}
+	/**
+	 * sets user entered value/number associated with this data point
+	 * @param value 
+	 */
+	public void setValue(double value) {
+		this.value = value;
+	}
+	/**
 	 * submits data point to database
 	 * @param ctx	Activity Context
 	 */
@@ -57,107 +161,5 @@ public class DataPoint {
 					);
 		}
 		mDbHelper.close();
-	}
-	/**
-	 * Sets default values for data point
-	 * value=0, date/time=now, comment=""
-	 * @param ctx	Activity Context
-	 */
-	private void setDefaults(Context ctx){
-		DateTime dt = new DateTime();
-		time=dt.getMillis();
-		value=0;
-		comment="";
-		updateTime=dt.getMillis();
-	}
-	/** 
-	 * Gets values for data point form database
-	 * @param ctx	Activity Context
-	 */
-	private void getFromDb(Context ctx){
-		mDbHelper = new dbAdapter(ctx);
-        mDbHelper.open();
-        Cursor c = mDbHelper.fetchData(id);
-        time=c.getLong(2);
-        value=c.getFloat(3);
-        comment=c.getString(4);
-        updateTime=c.getLong(5);
-    }
-	/**
-	 * gets unique id for data point
-	 * @return unique id for data point
-	 */
-	public int getId() {
-		return id;
-	}
-	/**
-	 * gets unique id of Tracker associated with this data point
-	 * @return tracker id
-	 */
-	public int getTrackerId() {
-		return trackerId;
-	}
-	/**
-	 * sets unique id of tracker associated with this data point
-	 * @param trackerId unique id of tracker
-	 */
-	public void setTrackerId(int trackerId) {
-		this.trackerId = trackerId;
-	}
-	/**
-	 * gets time displayed for data point
-	 * @return time in millis
-	 */
-	public long getTime() {
-		return time;
-	}
-	/**
-	 * sets time associated with the data point
-	 * @param time time in millis
-	 */
-	public void setTime(long time) {
-		this.time = time;
-	}
-	/**
-	 * gets user entered value/number associated with data point
-	 * @return value
-	 */
-	public double getValue() {
-		return value;
-	}
-	/**
-	 * sets user entered value/number associated with this data point
-	 * @param value 
-	 */
-	public void setValue(double value) {
-		this.value = value;
-	}
-	/**
-	 * user entered comment for the data point
-	 * @return comment
-	 */
-	public String getComment() {
-		return comment;
-	}
-	/**
-	 * user entered comment for the data point
-	 * @param comment
-	 */
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-	/**
-	 * system generated time data was set in database
-	 * @return time in millis
-	 */
-	public long getUpdateTime() {
-		return updateTime;
-	}
-	/**
-	 * system generated time data was set in database
-	 * @param updateTime time in millis
-	 */
-	public void setUpdateTime(long updateTime) {
-		this.updateTime = updateTime;
 	}
 }

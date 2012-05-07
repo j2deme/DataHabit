@@ -1,5 +1,6 @@
 package com.rdpharr.DataHabit;
 
+import models.dbAdapter;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;

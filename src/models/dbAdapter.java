@@ -1,4 +1,4 @@
-package com.rdpharr.DataHabit;
+package models;
 
 import android.content.ContentValues;
 import android.content.Context;

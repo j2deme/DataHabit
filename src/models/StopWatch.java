@@ -1,4 +1,4 @@
-package com.rdpharr.DataHabit;
+package models;
 
 /*
 Copyright (c) 2005, Corey Goldberg

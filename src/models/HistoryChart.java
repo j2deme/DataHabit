@@ -1,6 +1,7 @@
-package com.rdpharr.DataHabit;
+package models;
 
 import java.util.Date;
+
 
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.PointStyle;
@@ -8,6 +9,9 @@ import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
+
+import com.rdpharr.DataHabit.R;
+import com.rdpharr.DataHabit.R.string;
 
 import android.content.Context;
 import android.content.Intent;

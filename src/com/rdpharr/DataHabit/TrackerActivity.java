@@ -7,6 +7,8 @@
 
 package com.rdpharr.DataHabit;
 
+import models.Tracker;
+
 import org.joda.time.DateTime;
 
 import android.app.AlertDialog;

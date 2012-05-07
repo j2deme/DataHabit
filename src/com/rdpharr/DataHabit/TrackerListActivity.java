@@ -1,5 +1,7 @@
 package com.rdpharr.DataHabit;
 
+import models.Tracker;
+import models.dbAdapter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;

@@ -2,6 +2,8 @@ package com.rdpharr.DataHabit;
 
 import java.util.Calendar;
 
+import models.dbAdapter;
+
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;

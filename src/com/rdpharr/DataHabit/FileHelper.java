@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import models.dbAdapter;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Environment;

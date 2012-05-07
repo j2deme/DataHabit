@@ -2,6 +2,10 @@ package com.rdpharr.DataHabit;
 
 import java.io.IOException;
 
+import models.HistoryChart;
+import models.Tracker;
+import models.dbAdapter;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;

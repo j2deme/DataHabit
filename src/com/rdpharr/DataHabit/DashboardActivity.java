@@ -1,5 +1,6 @@
 package com.rdpharr.DataHabit;
 
+import models.dbAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;

@@ -1,5 +1,8 @@
 package com.rdpharr.DataHabit;
 
+import models.DataPoint;
+import models.Tracker;
+
 import org.joda.time.DateTime;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
