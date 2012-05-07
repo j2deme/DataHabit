@@ -1,9 +1,8 @@
-package com.rdpharr.DataHabit;
+package controllers;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 

@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.google.android.apps.analytics.easytracking.TrackedListActivity;
 
+import controllers.Helper;
+
 public class TrackerListActivity extends TrackedListActivity {
 	private dbAdapter mDbHelper;
 	private int trackerId;

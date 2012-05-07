@@ -36,6 +36,9 @@ import android.widget.TextView;
 
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
+import controllers.Helper;
+import controllers.UtilDat;
+
 public class TrackerActivity extends TrackedActivity {
 	private TextView tvName;//Name of Tracker
 	private Spinner spinner;//Type of Tracker

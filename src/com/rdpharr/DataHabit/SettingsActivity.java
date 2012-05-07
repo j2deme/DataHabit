@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
+import controllers.Helper;
+
 public class SettingsActivity extends TrackedActivity {
 	private CheckBox sound;
 	private CheckBox vibrate;

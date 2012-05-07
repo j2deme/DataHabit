@@ -7,6 +7,8 @@ import android.view.View;
 
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
+import controllers.AlarmMgr;
+
 public class DashboardActivity extends TrackedActivity {
 	private dbAdapter mDbHelper;
 	@Override

@@ -22,6 +22,9 @@ import android.widget.Toast;
 
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
+import controllers.Helper;
+import controllers.UtilDat;
+
 
 public class DataLoggerActivity extends TrackedActivity {
 	private RatingBar rb;

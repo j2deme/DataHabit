@@ -1,8 +1,13 @@
-package com.rdpharr.DataHabit;
+package controllers;
 
 import models.StopWatch;
 
 import org.joda.time.Duration;
+
+import com.rdpharr.DataHabit.R;
+import com.rdpharr.DataHabit.R.id;
+import com.rdpharr.DataHabit.R.string;
+
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -213,7 +218,7 @@ public class UtilDat {
             }
         }
     };
-	static String getValueString(Context ctx, int trackerType, float value){
+	public static String getValueString(Context ctx, int trackerType, float value){
 		String returnVal="";
 		switch (trackerType){
 			case 3:			//yes/no choice

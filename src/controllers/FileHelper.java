@@ -1,9 +1,12 @@
-package com.rdpharr.DataHabit;
+package controllers;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import com.rdpharr.DataHabit.R;
+import com.rdpharr.DataHabit.R.string;
 
 import models.dbAdapter;
 

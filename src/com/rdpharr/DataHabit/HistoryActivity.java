@@ -28,6 +28,10 @@ import android.widget.TextView;
 
 import com.google.android.apps.analytics.easytracking.TrackedListActivity;
 
+import controllers.FileHelper;
+import controllers.Helper;
+import controllers.UtilDat;
+
 
 public class HistoryActivity extends TrackedListActivity {
 	private dbAdapter mDbHelper;

@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
+import controllers.FileHelper;
+
 public class ExportDataActivity extends TrackedActivity {
 	private dbAdapter mDbHelper;
 	@Override

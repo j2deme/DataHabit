@@ -1,4 +1,6 @@
-package com.rdpharr.DataHabit;
+package controllers;
+
+import com.rdpharr.DataHabit.NotificationService;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
