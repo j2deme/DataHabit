@@ -17,23 +17,39 @@ public class ExportLogic {
 	private static dbAdapter mDbHelper;
 	private static int trackerType;
 	public static String exportData(boolean[] options, Context ctx){
+		//options = {"Separate Date and Time Fields", "Include Last Update Time"};
+	    
 		mDbHelper = new dbAdapter(ctx);
         mDbHelper.open();
 		Cursor c = mDbHelper.fetchAllTrackers();
-        String strFile=trackerCsvHeader(ctx);
+        String strFile=trackerCsvHeader(options, ctx);
         for (int i=0; i<c.getCount(); i++){
         	c.moveToPosition(i);
         	int trackerID = c.getInt(0);
-        	strFile = strFile + trackerCsv(ctx, trackerID);
+        	strFile = strFile + trackerCsv(options, ctx, trackerID);
         }
         String outFile = makeFile("DataHabit.csv", strFile);
         return outFile;
 	}
-	public static String trackerCsvHeader(Context cxt){
-		String strCSV = cxt.getString(R.string.csvHeader);
+	public static String trackerCsvHeader(boolean[] options, Context cxt){
+		String strCSV = cxt.getString(R.string.TrackerName);
+		strCSV =strCSV + "," + cxt.getString(R.string.date);
+		if (options[0]==true)strCSV =strCSV + "," + cxt.getString(R.string.time);
+		strCSV =strCSV + "," + cxt.getString(R.string.value);
+		strCSV =strCSV + "," + cxt.getString(R.string.Comments);
+		if (options[1]==true){
+			if (options[0]==false){
+				strCSV =strCSV + "," + cxt.getString(R.string.LastUpdated);
+			}else{
+				strCSV =strCSV + "," + cxt.getString(R.string.LastUpdatedDate);
+				strCSV =strCSV + "," + cxt.getString(R.string.LastUpdatedTime);
+			}
+		}
+		strCSV =strCSV + "/n";
+		
 		return strCSV;
 	}
-	public static String trackerCsv(Context ctx, int trackerID){
+	public static String trackerCsv(boolean[] options, Context ctx, int trackerID){
 		mDbHelper = new dbAdapter(ctx);
         mDbHelper.open();
 		Log.d("trackerID",Integer.toString(trackerID));
@@ -47,9 +63,22 @@ public class ExportLogic {
 		for (int i=0; i<d.getCount(); i++){
 			d.moveToPosition(i);
 			strCSV = strCSV + "\""+trackerName + "\","; 
-			strCSV = strCSV + "\""+Helper.milliToStr(d.getLong(2))+ "\",";
+			if (options[0]==false){
+				strCSV = strCSV + "\""+Helper.milliToStr(d.getLong(2))+ "\",";
+			}else{
+				strCSV = strCSV + "\""+Helper.milliToDate(d.getLong(2))+ "\",";
+				strCSV = strCSV + "\""+Helper.milliToTime(d.getLong(2))+ "\",";
+			}
 			strCSV = strCSV + UtilDat.getValueString(ctx, trackerType,d.getFloat(3))+ ",";
 			strCSV = strCSV + "\""+d.getString(4)+ "\"\n";
+			if (options[1]==true){
+				if (options[0]==false){
+					strCSV = strCSV + "\""+Helper.milliToStr(d.getLong(5))+ "\",";
+				}else{
+					strCSV = strCSV + "\""+Helper.milliToDate(d.getLong(5))+ "\",";
+					strCSV = strCSV + "\""+Helper.milliToTime(d.getLong(5))+ "\",";
+				}
+			}
 		}
 		d.close();
 		return strCSV;

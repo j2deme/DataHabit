@@ -41,6 +41,16 @@ public class Helper {
 		String s = c.toString("yyyy-MM-dd HH:mm:ss");
 		return s;
 	}
+	public static String milliToDate (long milli){
+		DateTime c = new DateTime().withMillis(milli);
+		String s = c.toString("yyyy-MM-dd");
+		return s;
+	}
+	public static String milliToTime (long milli){
+		DateTime c = new DateTime().withMillis(milli);
+		String s = c.toString("HH:mm:ss");
+		return s;
+	}
 	public static String milliToNoSecStr (long milli){
 		DateTime c = new DateTime().withMillis(milli);
 		String s = c.toString("yyyy-MM-dd HH:mm");
