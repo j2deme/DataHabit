@@ -3,11 +3,6 @@ package controllers;
 import models.StopWatch;
 
 import org.joda.time.Duration;
-
-import com.rdpharr.DataHabit.R;
-import com.rdpharr.DataHabit.R.id;
-import com.rdpharr.DataHabit.R.string;
-
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import com.rdpharr.DataHabit.R;
 
 public class UtilDat {
 	public static void setInputControl(
