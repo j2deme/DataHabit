@@ -106,7 +106,7 @@ public class HistoryActivity extends TrackedListActivity {
             		case 2:
 	            		long createDate = aCursor.getLong(aColumnIndex);
 	                    TextView tvDate = (TextView) aView;
-	                    tvDate.setText(Helper.milliToStr(createDate));
+	                    tvDate.setText(Helper.milliToNoSecStr(createDate));
 	                    return true;
 	                case 3:
 	            		float value = aCursor.getFloat(aColumnIndex);
