@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import controllers.ExportLogic;
@@ -14,7 +15,13 @@ public class ExportDataActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    
 	    final CharSequence[] items = {"Separate Date and Time Fields", "Include Last Update Time"};
+	    
+	    //set defaults
 	    final boolean[] options = {false, true};
+	    SharedPreferences settings = getSharedPreferences("exportSettings", 0);
+	    options[0]=settings.getBoolean("seperateDateTime", false);
+	    options[1]=settings.getBoolean("includeLastUpdate", true);
+		
 	    
 	    //setup alert
 	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -26,7 +33,11 @@ public class ExportDataActivity extends Activity {
 	    });
 	    builder.setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
       	  public void onClick(DialogInterface dialog, int whichButton) {
-      		  exportData(options);
+      		SharedPreferences settings = getSharedPreferences("exportSettings", 0);
+    	    SharedPreferences.Editor editor = settings.edit();
+    	    editor.putBoolean("seperateDateTime", options[0]);
+    	    editor.putBoolean("includeLastUpdate", options[1]);
+      		exportData(options);
       	    }
       	  });
 	    builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
