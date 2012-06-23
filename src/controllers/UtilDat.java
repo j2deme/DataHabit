@@ -4,6 +4,7 @@ import models.StopWatch;
 
 import org.joda.time.Duration;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.EditText;
@@ -181,6 +182,7 @@ public class UtilDat {
 		String control = tvTimerControl.getText().toString();
 		if (control ==  ctx.getString(R.string.start_timer)){
 			tvTimerControl.setText(Helper.underline(ctx.getString(R.string.stop_timer)));
+			tvTimerControl.setTextColor(Color.RED);
 			global_etSecs = etSecs;
 			global_etMins = etMins;
 			global_etHours = etHours;
@@ -188,6 +190,7 @@ public class UtilDat {
    			mHandler.sendEmptyMessage(MSG_START_TIMER);
    		}else{
    			tvTimerControl.setText(Helper.underline(ctx.getString(R.string.start_timer)));
+   			tvTimerControl.setTextColor(Color.WHITE);
 			mHandler.sendEmptyMessage(MSG_STOP_TIMER);
 		}
 	}
