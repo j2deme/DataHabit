@@ -37,6 +37,7 @@ public class ExportDataActivity extends Activity {
     	    SharedPreferences.Editor editor = settings.edit();
     	    editor.putBoolean("seperateDateTime", options[0]);
     	    editor.putBoolean("includeLastUpdate", options[1]);
+    	    editor.commit();
       		exportData(options);
       	    }
       	  });
