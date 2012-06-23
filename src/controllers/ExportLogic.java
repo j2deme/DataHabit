@@ -5,19 +5,30 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.rdpharr.DataHabit.R;
-import com.rdpharr.DataHabit.R.string;
-
 import models.dbAdapter;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Environment;
 import android.util.Log;
 
-public class FileHelper {
+import com.rdpharr.DataHabit.R;
+
+public class ExportLogic {
 	private static dbAdapter mDbHelper;
 	private static int trackerType;
+	public static String exportData(boolean[] options, Context ctx){
+		mDbHelper = new dbAdapter(ctx);
+        mDbHelper.open();
+		Cursor c = mDbHelper.fetchAllTrackers();
+        String strFile=trackerCsvHeader(ctx);
+        for (int i=0; i<c.getCount(); i++){
+        	c.moveToPosition(i);
+        	int trackerID = c.getInt(0);
+        	strFile = strFile + trackerCsv(ctx, trackerID);
+        }
+        String outFile = makeFile("DataHabit.csv", strFile);
+        return outFile;
+	}
 	public static String trackerCsvHeader(Context cxt){
 		String strCSV = cxt.getString(R.string.csvHeader);
 		return strCSV;

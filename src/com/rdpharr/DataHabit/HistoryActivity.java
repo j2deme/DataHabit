@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import com.google.android.apps.analytics.easytracking.TrackedListActivity;
 
-import controllers.FileHelper;
+import controllers.ExportLogic;
 import controllers.Helper;
 import controllers.UtilDat;
 
@@ -125,8 +125,8 @@ public class HistoryActivity extends TrackedListActivity {
 	}
 	private void saveAndEmail() throws IOException{
 		//Make file
-		String strFile = FileHelper.trackerCsvHeader(this) +FileHelper.trackerCsv(this, trackerID);
-		String outFile = FileHelper.makeFile("data.csv", strFile);
+		String strFile = ExportLogic.trackerCsvHeader(this) +ExportLogic.trackerCsv(this, trackerID);
+		String outFile = ExportLogic.makeFile("data.csv", strFile);
 		
 		//send email
 		Intent email = new Intent(android.content.Intent.ACTION_SEND);

@@ -9,22 +9,22 @@ import android.view.ViewGroup;
  * Custom layout that arranges children in a grid-like manner, optimizing for even horizontal and
  * vertical whitespace.
  */
-public class DashboardLayout extends ViewGroup {
+public class DashboardLogic extends ViewGroup {
 
     private static final int UNEVEN_GRID_PENALTY_MULTIPLIER = 2;
 
     private int mMaxChildWidth = 0;
     private int mMaxChildHeight = 0;
 
-    public DashboardLayout(Context context) {
+    public DashboardLogic(Context context) {
         super(context, null);
     }
 
-    public DashboardLayout(Context context, AttributeSet attrs) {
+    public DashboardLogic(Context context, AttributeSet attrs) {
         super(context, attrs, 0);
     }
 
-    public DashboardLayout(Context context, AttributeSet attrs, int defStyle) {
+    public DashboardLogic(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

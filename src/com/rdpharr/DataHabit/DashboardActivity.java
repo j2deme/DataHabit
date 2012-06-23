@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
-import controllers.AlarmMgr;
+import controllers.AlarmLogic;
 
 public class DashboardActivity extends TrackedActivity {
 	private dbAdapter mDbHelper;
@@ -19,7 +19,7 @@ public class DashboardActivity extends TrackedActivity {
         mDbHelper.open();
 	    
 	    //start reminder service
-        AlarmMgr.startAlarm(this);
+        AlarmLogic.startAlarm(this);
 	 
 	    //attach event handler to dash buttons
 	    DashboardClickListener dBClickListener = new DashboardClickListener();
