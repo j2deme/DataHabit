@@ -29,7 +29,6 @@
     <string name="yesno_description">Yes/No will let you record that answer. It\'s great for recording whether or not something happened</string>
     <string name="pushbutton_description">Use the this to record events - click Save when something happens. It\'s great for tracking habits like smoking.</string>
     <string name="save">Save</string>
-    <string name="HataEntry">DataHabit Entry</string>
     <string name="history">All data is shown.</string>
     <string name="open_tracker">Add Data to Tracker</string>
     <string name="edit_tracker">Edit Tracker Settings</string>
@@ -85,4 +84,6 @@
     <string name="LastUpdated">Last Updated</string>
     <string name="LastUpdatedDate">Last Updated Date</string>
     <string name="LastUpdatedTime">Last Updated Time</string>
+    <string name="Statistics">Statistics</string>
+    
 </resources>

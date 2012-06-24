@@ -31,7 +31,7 @@ public class ExportLogic {
         String outFile = makeFile("DataHabit.csv", strFile);
         return outFile;
 	}
-	public static String trackerCsvHeader(boolean[] options, Context cxt){
+	private static String trackerCsvHeader(boolean[] options, Context cxt){
 		String strCSV = cxt.getString(R.string.TrackerName);
 		strCSV =strCSV + "," + cxt.getString(R.string.date);
 		if (options[0]==true)strCSV =strCSV + "," + cxt.getString(R.string.time);
@@ -49,7 +49,7 @@ public class ExportLogic {
 		
 		return strCSV;
 	}
-	public static String trackerCsv(boolean[] options, Context ctx, int trackerID){
+	private static String trackerCsv(boolean[] options, Context ctx, int trackerID){
 		mDbHelper = new dbAdapter(ctx);
         mDbHelper.open();
 		Log.d("trackerID",Integer.toString(trackerID));
@@ -84,7 +84,7 @@ public class ExportLogic {
 		d.close();
 		return strCSV;
 	}
-	public static String makeFile (String fileName, String fileContents){
+	private static String makeFile (String fileName, String fileContents){
 		File root = Environment.getExternalStorageDirectory();
 		File csvFile = new File(root, fileName);
 		try {

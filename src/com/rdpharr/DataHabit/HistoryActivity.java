@@ -70,10 +70,12 @@ public class HistoryActivity extends TrackedListActivity {
 	        });
 	        
 	        TextView tvEmail = (TextView)findViewById(R.id.tvEmail);
-	        tvEmail.setText(Helper.underline(this.getString(R.string.email_data)));
+	        tvEmail.setText(Helper.underline(this.getString(R.string.Statistics)));
 	        tvEmail.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
-	            	//TODO: turn this into summary stats
+	            	Intent i = new Intent(HistoryActivity.this, statsActivity.class);
+	            	i.putExtra("TrackerRowID", trackerID);
+	            	HistoryActivity.this.startActivity(i);
 	            }
 	        });
         }
