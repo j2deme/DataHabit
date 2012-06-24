@@ -1,16 +1,12 @@
 package com.rdpharr.DataHabit;
 
-import java.io.IOException;
-
 import models.HistoryChart;
 import models.Tracker;
 import models.dbAdapter;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -28,7 +24,6 @@ import android.widget.TextView;
 
 import com.google.android.apps.analytics.easytracking.TrackedListActivity;
 
-import controllers.ExportLogic;
 import controllers.Helper;
 import controllers.UtilDat;
 
@@ -78,11 +73,7 @@ public class HistoryActivity extends TrackedListActivity {
 	        tvEmail.setText(Helper.underline(this.getString(R.string.email_data)));
 	        tvEmail.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
-					try {
-						saveAndEmail();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+	            	//TODO: turn this into summary stats
 	            }
 	        });
         }
@@ -122,20 +113,6 @@ public class HistoryActivity extends TrackedListActivity {
             }
         });
         setListAdapter(history_data);
-	}
-	private void saveAndEmail() throws IOException{
-		//Make file
-		String strFile = ExportLogic.trackerCsvHeader(this) +ExportLogic.trackerCsv(this, trackerID);
-		String outFile = ExportLogic.makeFile("data.csv", strFile);
-		
-		//send email
-		Intent email = new Intent(android.content.Intent.ACTION_SEND);
-		email.putExtra(Intent.EXTRA_SUBJECT, this.getString(R.string.eMailSubject)); 
-		email.putExtra(Intent.EXTRA_TEXT, this.getString(R.string.eMailText)); 
-		email.setType("application/octet-stream");
-		email.putExtra(android.content.Intent.EXTRA_STREAM, Uri.parse(outFile));
-		this.startActivity(email);
-		
 	}
 	@Override
     public void onCreateContextMenu(ContextMenu menu, View v,

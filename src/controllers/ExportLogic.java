@@ -45,7 +45,7 @@ public class ExportLogic {
 				strCSV =strCSV + "," + cxt.getString(R.string.LastUpdatedTime);
 			}
 		}
-		strCSV =strCSV + "/n";
+		strCSV =strCSV + "\n";
 		
 		return strCSV;
 	}
@@ -70,7 +70,7 @@ public class ExportLogic {
 				strCSV = strCSV + "\""+Helper.milliToTime(d.getLong(2))+ "\",";
 			}
 			strCSV = strCSV + UtilDat.getValueString(ctx, trackerType,d.getFloat(3))+ ",";
-			strCSV = strCSV + "\""+d.getString(4)+ "\"\n";
+			strCSV = strCSV + "\""+d.getString(4)+ "\",";
 			if (options[1]==true){
 				if (options[0]==false){
 					strCSV = strCSV + "\""+Helper.milliToStr(d.getLong(5))+ "\",";
@@ -79,6 +79,7 @@ public class ExportLogic {
 					strCSV = strCSV + "\""+Helper.milliToTime(d.getLong(5))+ "\",";
 				}
 			}
+			strCSV =strCSV + "\n";
 		}
 		d.close();
 		return strCSV;

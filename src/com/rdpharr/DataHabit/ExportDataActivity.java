@@ -49,6 +49,7 @@ public class ExportDataActivity extends Activity {
 	    
 	    //show alert
 	    AlertDialog alert = builder.create();
+	    alert.show();
 	}
 	private void exportData(boolean[] options){
 	    String outFile = ExportLogic.exportData(options, this);

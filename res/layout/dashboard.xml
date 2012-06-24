@@ -18,7 +18,7 @@
     android:layout_height="fill_parent"
     >
  
-    <com.rdpharr.DataHabit.DashboardLayout
+    <controllers.DashboardLogic
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -43,7 +43,7 @@
             style="@style/DashboardButton"
             android:text="@string/activity_settings"
             android:drawableTop="@drawable/db_settings" />   
-    </com.rdpharr.DataHabit.DashboardLayout>
+    </controllers.DashboardLogic>
  
 </LinearLayout>
 </LinearLayout>
