@@ -2,11 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+    <LinearLayout style="@style/TitleBar"
+        android:id="@+id/title_layout">
+        <ImageView style="@style/TitleBarSeparator" />
+
+        <TextView android:id="@+id/title_text"
+            style="@style/TitleBarText"
+            android:text="@string/select_tracker" />
+    </LinearLayout>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroll_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true"
+    android:layout_below="@+id/title_layout"
     android:layout_above="@+id/bucket_layout"
     android:scrollbarAlwaysDrawVerticalTrack="true"
     android:scrollbarDefaultDelayBeforeFade="3000">

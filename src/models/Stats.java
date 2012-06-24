@@ -4,24 +4,27 @@ import java.text.DecimalFormat;
 
 import org.joda.time.DateTime;
 
+import com.rdpharr.DataHabit.R;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class StatsTable {
+public class Stats {
 	private dbAdapter mDbHelper;
 	private Tracker t;
 	private LinearLayout ll;
+	private TextView titleTv;
 	private Context ctx;
 	private double n7,n30,nAll; //count
 	private double e7,e30,eAll; //sum 
-	public StatsTable(int trackerId, LinearLayout layout, Context activity){
+	public Stats(int trackerId, LinearLayout layout, TextView title, Context activity){
 		t = new Tracker(activity, trackerId);
 		ll = layout;
 		ctx=activity;
+		titleTv = title;
         e7=0;
         e30=0;
         eAll=0;
@@ -33,34 +36,35 @@ public class StatsTable {
 		fillCalcs();
 		DecimalFormat df0 = new DecimalFormat("#");
 		
-		addTextView(t.getName()+" Statistics", true);
-		addTextView("", true);
+		titleTv.setText(t.getName()+" "+ctx.getString(R.string.Statistics));
 		
 		//create 7day section
-		addTextView("Last 7 Days", true);
-		addTextView("Number of Data Points="+df0.format(n7), false);
+		addTextView(ctx.getString(R.string.Last7Days), true);
+		addTextView(ctx.getString(R.string.NumDataPoints)+":"+df0.format(n7), false);
 		String s = "";
 		if (n7>0){s = myFormat(e7/n7);}
 			else{s="N/A";}
-		addTextView("Average of Data Points="+s, false);
-		addTextView("Total of Data Points="+myFormat(e7), false);
+		addTextView(ctx.getString(R.string.AvgDataPoints)+":"+s, false);
+		addTextView(ctx.getString(R.string.SumDataPoints)+":"+myFormat(e7), false);
 		addTextView("",false);
 		
 		//header, number of data points, average, total
 		//create 30 day section
-		addTextView("Last 30 Days", true);
-		addTextView("Number of Data Points="+df0.format(n30), false);
+		addTextView(ctx.getString(R.string.Last30Days), true);
+		addTextView(ctx.getString(R.string.NumDataPoints)+":"+df0.format(n30), false);
 		if (n30>0){s = myFormat(e30/n30);}
 			else{s="N/A";}
-		addTextView("Average of Data Points="+s, false);
-		addTextView("Total of Data Points="+myFormat(e30), false);
+		addTextView(ctx.getString(R.string.AvgDataPoints)+":"+s, false);
+		addTextView(ctx.getString(R.string.SumDataPoints)+":"+myFormat(e30), false);
 		addTextView("",false);
 		
 		//create all time section
-		addTextView("All Time", true);
-		addTextView("Number of Data Points="+df0.format(nAll), false);
-		addTextView("Average of Data Points="+myFormat(eAll/nAll), false);
-		addTextView("Total of Data Points="+myFormat(eAll), false);
+		addTextView(ctx.getString(R.string.AllTime), true);
+		addTextView(ctx.getString(R.string.NumDataPoints)+":"+df0.format(nAll), false);
+		if (nAll>0){s = myFormat(eAll/nAll);}
+		else{s="N/A";}
+		addTextView(ctx.getString(R.string.AvgDataPoints)+":"+s, false);
+		addTextView(ctx.getString(R.string.SumDataPoints)+":"+myFormat(eAll), false);
 		addTextView("",false);
 	}
 	private String myFormat(Double d){
@@ -69,11 +73,11 @@ public class StatsTable {
 		DecimalFormat df2 = new DecimalFormat("#.##");
 		switch (t.getType()){
 			case 3:
-				s=df2.format(d)+" yes";
+				s=df2.format(d)+" "+ctx.getString(R.string.yes);
 				break;
 			case 5:
 				d=d/(1000*60);
-				s=df1.format(d)+" minutes";
+				s=df1.format(d)+" "+ctx.getString(R.string.minutes);
 				break;
 			default:
 				s=df1.format(d);
@@ -94,17 +98,16 @@ public class StatsTable {
         mDbHelper.open();
         Cursor c = mDbHelper.fetchAllData(t.getId());
         
-        double now = new DateTime().getMillis();
-        Log.d("now",String.valueOf(now));
-        double daysAgo7 = now-(7*24*60*60*1000);
-        Log.d("daysAgo7",String.valueOf(daysAgo7));
-        double daysAgo30 = now +(30*24*60*60*1000);
-        Log.d("daysAgo30",String.valueOf(daysAgo30));
+        long days = 24*60*60*1000; //one day in millis
+        long daysAgo7 = new DateTime().getMillis();
+        daysAgo7 = daysAgo7 - (7*days);
+        long daysAgo30 = new DateTime().getMillis();
+        daysAgo30 = daysAgo30 - (30*days);
         
         for (int i = 0; i<c.getCount(); i++){
         	c.moveToPosition(i);
         	
-        	double dateVal = c.getDouble(2);
+        	long dateVal = c.getLong(2);
         	nAll+=1;
         	if (dateVal>=daysAgo30){
         		n30+=1;

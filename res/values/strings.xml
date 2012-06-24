@@ -85,5 +85,10 @@
     <string name="LastUpdatedDate">Last Updated Date</string>
     <string name="LastUpdatedTime">Last Updated Time</string>
     <string name="Statistics">Statistics</string>
-    
+    <string name="Last7Days">Last 7 Days</string>
+    <string name="Last30Days">Last 30 Days</string>
+    <string name="AllTime">All Time</string>
+    <string name="NumDataPoints">Number of Data Points</string>
+    <string name="AvgDataPoints">Average of Data Points</string>
+    <string name="SumDataPoints">Total of Data Points</string>
 </resources>
