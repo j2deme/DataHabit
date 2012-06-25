@@ -3,6 +3,11 @@ package models;
 import java.text.DecimalFormat;
 
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import org.joda.time.Period;
+import org.joda.time.format.ISOPeriodFormat;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 
 import com.rdpharr.DataHabit.R;
 
@@ -42,45 +47,63 @@ public class Stats {
 		addTextView(ctx.getString(R.string.Last7Days), true);
 		addTextView(ctx.getString(R.string.NumDataPoints)+":"+df0.format(n7), false);
 		String s = "";
-		if (n7>0){s = myFormat(e7/n7);}
-			else{s="N/A";}
+		if (n7>0){
+			if(t.getType()==3){//yes/no
+				s = myFormat((e7/n7)*100, true);
+			}else{
+				s = myFormat(e7/n7, false);
+			}
+		}else{s="N/A";}
 		addTextView(ctx.getString(R.string.AvgDataPoints)+":"+s, false);
-		addTextView(ctx.getString(R.string.SumDataPoints)+":"+myFormat(e7), false);
+		addTextView(ctx.getString(R.string.SumDataPoints)+":"+myFormat(e7, false), false);
 		addTextView("",false);
 		
-		//header, number of data points, average, total
 		//create 30 day section
 		addTextView(ctx.getString(R.string.Last30Days), true);
 		addTextView(ctx.getString(R.string.NumDataPoints)+":"+df0.format(n30), false);
-		if (n30>0){s = myFormat(e30/n30);}
-			else{s="N/A";}
+		if (n30>0){
+			if(t.getType()==3){//yes/no
+				s = myFormat((e30/n30)*100, true);
+			}else{
+				s = myFormat(e30/n30, false);
+			}
+		}else{s="N/A";}
 		addTextView(ctx.getString(R.string.AvgDataPoints)+":"+s, false);
-		addTextView(ctx.getString(R.string.SumDataPoints)+":"+myFormat(e30), false);
+		addTextView(ctx.getString(R.string.SumDataPoints)+":"+myFormat(e30, false), false);
 		addTextView("",false);
 		
 		//create all time section
 		addTextView(ctx.getString(R.string.AllTime), true);
 		addTextView(ctx.getString(R.string.NumDataPoints)+":"+df0.format(nAll), false);
-		if (nAll>0){s = myFormat(eAll/nAll);}
-		else{s="N/A";}
+		if (nAll>0){
+			if(t.getType()==3){//yes/no
+				s = myFormat((eAll/nAll)*100, true);
+			}else{
+				s = myFormat(eAll/nAll, false);
+			}
+		}else{s="N/A";}
 		addTextView(ctx.getString(R.string.AvgDataPoints)+":"+s, false);
-		addTextView(ctx.getString(R.string.SumDataPoints)+":"+myFormat(eAll), false);
+		addTextView(ctx.getString(R.string.SumDataPoints)+":"+myFormat(eAll, false), false);
 		addTextView("",false);
 	}
-	private String myFormat(Double d){
+	private String myFormat(Double d, boolean percent){
 		String s="";
-		DecimalFormat df1 = new DecimalFormat("#.#");
-		DecimalFormat df2 = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat("#.#");
 		switch (t.getType()){
 			case 3:
-				s=df2.format(d)+" "+ctx.getString(R.string.yes);
+				if (percent){
+					s=df.format(d)+"% "+ctx.getString(R.string.yes);
+				}else{
+					s=df.format(d)+" "+ctx.getString(R.string.yes);
+				}
 				break;
 			case 5:
-				d=d/(1000*60);
-				s=df1.format(d)+" "+ctx.getString(R.string.minutes);
+				d=d/1000;//convert to seconds
+				Long l = Math.round(d);
+				s=String.format("%d:%02d:%02d", l/3600, (l%3600)/60, (l%60));
 				break;
 			default:
-				s=df1.format(d);
+				s=df.format(d);
 				break;
 		}
 		return s;
