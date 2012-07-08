@@ -3,19 +3,14 @@ package models;
 import java.text.DecimalFormat;
 
 import org.joda.time.DateTime;
-import org.joda.time.Duration;
-import org.joda.time.Period;
-import org.joda.time.format.ISOPeriodFormat;
-import org.joda.time.format.PeriodFormatter;
-import org.joda.time.format.PeriodFormatterBuilder;
-
-import com.rdpharr.DataHabit.R;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.rdpharr.DataHabit.R;
 
 public class Stats {
 	private dbAdapter mDbHelper;

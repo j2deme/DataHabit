@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import models.FormatHelper;
 import models.dbAdapter;
 import android.content.Context;
 import android.database.Cursor;
@@ -14,14 +15,15 @@ import android.util.Log;
 import com.rdpharr.DataHabit.R;
 
 public class ExportLogic {
-	private static dbAdapter mDbHelper;
+	private static dbAdapter mDbf;
 	private static int trackerType;
+	static FormatHelper f;
 	public static String exportData(boolean[] options, Context ctx){
 		//options = {"Separate Date and Time Fields", "Include Last Update Time"};
 	    
-		mDbHelper = new dbAdapter(ctx);
-        mDbHelper.open();
-		Cursor c = mDbHelper.fetchAllTrackers();
+		mDbf = new dbAdapter(ctx);
+        mDbf.open();
+		Cursor c = mDbf.fetchAllTrackers();
         String strFile=trackerCsvHeader(options, ctx);
         for (int i=0; i<c.getCount(); i++){
         	c.moveToPosition(i);
@@ -50,33 +52,34 @@ public class ExportLogic {
 		return strCSV;
 	}
 	private static String trackerCsv(boolean[] options, Context ctx, int trackerID){
-		mDbHelper = new dbAdapter(ctx);
-        mDbHelper.open();
+		f=new FormatHelper(ctx);
+		mDbf = new dbAdapter(ctx);
+        mDbf.open();
 		Log.d("trackerID",Integer.toString(trackerID));
-		Cursor c = mDbHelper.fetchTracker(trackerID);
+		Cursor c = mDbf.fetchTracker(trackerID);
 		String trackerName = c.getString(1) ;
 		trackerType = c.getInt(2);
         c.close();
         
-        Cursor d = mDbHelper.fetchAllData(trackerID);
+        Cursor d = mDbf.fetchAllData(trackerID);
         String strCSV = "";
 		for (int i=0; i<d.getCount(); i++){
 			d.moveToPosition(i);
 			strCSV = strCSV + "\""+trackerName + "\","; 
 			if (options[0]==false){
-				strCSV = strCSV + "\""+Helper.milliToStr(d.getLong(2))+ "\",";
+				strCSV = strCSV + "\""+f.milliToDateTime(d.getLong(2))+ "\",";
 			}else{
-				strCSV = strCSV + "\""+Helper.milliToDate(d.getLong(2))+ "\",";
-				strCSV = strCSV + "\""+Helper.milliToTime(d.getLong(2))+ "\",";
+				strCSV = strCSV + "\""+f.milliToDate(d.getLong(2))+ "\",";
+				strCSV = strCSV + "\""+f.milliToTime(d.getLong(2))+ "\",";
 			}
 			strCSV = strCSV + UtilDat.getValueString(ctx, trackerType,d.getFloat(3))+ ",";
 			strCSV = strCSV + "\""+d.getString(4)+ "\",";
 			if (options[1]==true){
 				if (options[0]==false){
-					strCSV = strCSV + "\""+Helper.milliToStr(d.getLong(5))+ "\",";
+					strCSV = strCSV + "\""+f.milliToDateTime(d.getLong(5))+ "\",";
 				}else{
-					strCSV = strCSV + "\""+Helper.milliToDate(d.getLong(5))+ "\",";
-					strCSV = strCSV + "\""+Helper.milliToTime(d.getLong(5))+ "\",";
+					strCSV = strCSV + "\""+f.milliToDate(d.getLong(5))+ "\",";
+					strCSV = strCSV + "\""+f.milliToTime(d.getLong(5))+ "\",";
 				}
 			}
 			strCSV =strCSV + "\n";

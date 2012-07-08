@@ -1,5 +1,6 @@
 package controllers;
 
+import models.FormatHelper;
 import models.StopWatch;
 
 import org.joda.time.Duration;
@@ -177,11 +178,13 @@ public class UtilDat {
     static EditText global_etSecs; 
     static EditText global_etMins;
     static EditText global_etHours;
+    static FormatHelper f;
 	public static void timerControl(Context ctx,EditText etSecs, EditText etMins,
 			EditText etHours, TextView tvTimerControl) {
+		f=new FormatHelper(ctx);
 		String control = tvTimerControl.getText().toString();
 		if (control ==  ctx.getString(R.string.start_timer)){
-			tvTimerControl.setText(Helper.underline(ctx.getString(R.string.stop_timer)));
+			tvTimerControl.setText(f.underline(ctx.getString(R.string.stop_timer)));
 			tvTimerControl.setTextColor(Color.RED);
 			global_etSecs = etSecs;
 			global_etMins = etMins;
@@ -189,7 +192,7 @@ public class UtilDat {
         	startTime = getTimerValue(etSecs,etMins,etHours);
    			mHandler.sendEmptyMessage(MSG_START_TIMER);
    		}else{
-   			tvTimerControl.setText(Helper.underline(ctx.getString(R.string.start_timer)));
+   			tvTimerControl.setText(f.underline(ctx.getString(R.string.start_timer)));
    			tvTimerControl.setTextColor(Color.WHITE);
 			mHandler.sendEmptyMessage(MSG_STOP_TIMER);
 		}

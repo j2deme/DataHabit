@@ -1,5 +1,6 @@
 package com.rdpharr.DataHabit;
 
+import models.FormatHelper;
 import models.HistoryChart;
 import models.Tracker;
 import models.dbAdapter;
@@ -24,7 +25,6 @@ import android.widget.TextView;
 
 import com.google.android.apps.analytics.easytracking.TrackedListActivity;
 
-import controllers.Helper;
 import controllers.UtilDat;
 
 
@@ -33,8 +33,10 @@ public class HistoryActivity extends TrackedListActivity {
 	private int trackerID;
 	private int trackerType;
 	Tracker t;
+	FormatHelper f;
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        f=new FormatHelper(this);
         Intent i = getIntent();
         trackerID = i.getIntExtra("TrackerRowID", 0);
         setContentView(R.layout.history_main);
@@ -60,7 +62,7 @@ public class HistoryActivity extends TrackedListActivity {
 	        if (trackerType==3 || trackerType==4){
 	        	tvChart.setVisibility(8);//gone
 	        }
-	        tvChart.setText(Helper.underline(this.getString(R.string.Chart)));
+	        tvChart.setText(f.underline(this.getString(R.string.Chart)));
 	        tvChart.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
 	            	HistoryChart h = new HistoryChart(HistoryActivity.this, trackerID);
@@ -70,7 +72,7 @@ public class HistoryActivity extends TrackedListActivity {
 	        });
 	        
 	        TextView tvEmail = (TextView)findViewById(R.id.tvEmail);
-	        tvEmail.setText(Helper.underline(this.getString(R.string.Statistics)));
+	        tvEmail.setText(f.underline(this.getString(R.string.Statistics)));
 	        tvEmail.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View v) {
 	            	Intent i = new Intent(HistoryActivity.this, statsActivity.class);
@@ -99,7 +101,7 @@ public class HistoryActivity extends TrackedListActivity {
             		case 2:
 	            		long createDate = aCursor.getLong(aColumnIndex);
 	                    TextView tvDate = (TextView) aView;
-	                    tvDate.setText(Helper.milliToNoSecStr(createDate));
+	                    tvDate.setText(f.milliToDateTimeNoSecs(createDate));
 	                    return true;
 	                case 3:
 	            		float value = aCursor.getFloat(aColumnIndex);

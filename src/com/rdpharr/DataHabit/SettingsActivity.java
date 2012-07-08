@@ -1,5 +1,6 @@
 package com.rdpharr.DataHabit;
 
+import models.FormatHelper;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,13 +15,12 @@ import android.widget.Toast;
 
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
-import controllers.Helper;
-
 public class SettingsActivity extends TrackedActivity {
 	private CheckBox sound;
 	private CheckBox vibrate;
 	private TextView customSound;
 	private String soundUri;
+	FormatHelper f;
 	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +36,7 @@ public class SettingsActivity extends TrackedActivity {
 		sound = (CheckBox) findViewById(R.id.notification_sound);
 		vibrate = (CheckBox) findViewById(R.id.notification_vibrate);
 		customSound = (TextView) findViewById(R.id.tvCustomSound);
-		customSound.setText(Helper.underline(getResources().getString(R.string.custom_sound)));
+		customSound.setText(f.underline(getResources().getString(R.string.custom_sound)));
 	}
 	private void setDefaults(){
 		SharedPreferences settings = getSharedPreferences("notifications", 0);
@@ -89,14 +89,14 @@ public class SettingsActivity extends TrackedActivity {
             }
         });
         final TextView tvTrackerSave = (TextView) findViewById(R.id.tvTrackerSave);
-        tvTrackerSave.setText(Helper.underline("Save"));
+        tvTrackerSave.setText(f.underline("Save"));
         tvTrackerSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	submitData();
             }
         });
         TextView tvTrackerCancel = (TextView)findViewById(R.id.tvTrackerCancel);
-        tvTrackerCancel.setText(Helper.underline("Cancel"));
+        tvTrackerCancel.setText(f.underline("Cancel"));
         tvTrackerCancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	finish();
