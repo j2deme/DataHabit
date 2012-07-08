@@ -15,15 +15,15 @@ import android.util.Log;
 import com.rdpharr.DataHabit.R;
 
 public class ExportLogic {
-	private static dbAdapter mDbf;
+	private static dbAdapter mDbHelper;
 	private static int trackerType;
 	static FormatHelper f;
 	public static String exportData(boolean[] options, Context ctx){
 		//options = {"Separate Date and Time Fields", "Include Last Update Time"};
 	    
-		mDbf = new dbAdapter(ctx);
-        mDbf.open();
-		Cursor c = mDbf.fetchAllTrackers();
+		mDbHelper = new dbAdapter(ctx);
+        mDbHelper.open();
+		Cursor c = mDbHelper.fetchAllTrackers();
         String strFile=trackerCsvHeader(options, ctx);
         for (int i=0; i<c.getCount(); i++){
         	c.moveToPosition(i);
@@ -53,15 +53,15 @@ public class ExportLogic {
 	}
 	private static String trackerCsv(boolean[] options, Context ctx, int trackerID){
 		f=new FormatHelper(ctx);
-		mDbf = new dbAdapter(ctx);
-        mDbf.open();
+		mDbHelper = new dbAdapter(ctx);
+        mDbHelper.open();
 		Log.d("trackerID",Integer.toString(trackerID));
-		Cursor c = mDbf.fetchTracker(trackerID);
+		Cursor c = mDbHelper.fetchTracker(trackerID);
 		String trackerName = c.getString(1) ;
 		trackerType = c.getInt(2);
         c.close();
         
-        Cursor d = mDbf.fetchAllData(trackerID);
+        Cursor d = mDbHelper.fetchAllData(trackerID);
         String strCSV = "";
 		for (int i=0; i<d.getCount(); i++){
 			d.moveToPosition(i);
