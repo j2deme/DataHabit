@@ -26,6 +26,7 @@ public class SettingsActivity extends TrackedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        f=new FormatHelper(this);
         
         getviewItems();
         setDefaults();
