@@ -19,6 +19,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -66,6 +67,7 @@ public class TrackerActivity extends TrackedActivity {
         Intent i = getIntent();
         trackerID = i.getIntExtra("TrackerRowID", 0);
         t = new Tracker(this, trackerID);
+        f=new FormatHelper(this);
         
         findViewItems();
         setView();
@@ -242,8 +244,9 @@ public class TrackerActivity extends TrackedActivity {
 	private void setView(){
 		//sets view from tracker
 		tvName.setText(f.underline(t.getName()));
+		Log.d("past that line","yes I am");
 		spinner.setSelection(t.getType());
-		if (t.getReminderEnabled()>0)setEnabled(true);
+    	if (t.getReminderEnabled()>0)setEnabled(true);
 		else setEnabled(false);
 		tvNumReminders.setText(f.underline(String.valueOf(t.getReminderFreq())));
 		String strCycle = (String) items[t.getReminderCycle()];
