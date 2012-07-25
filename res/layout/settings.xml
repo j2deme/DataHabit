@@ -26,6 +26,14 @@
 	    android:orientation="vertical"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content">
+
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/NotificationSettings"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:padding="7sp" />
 			<CheckBox
 		        android:id="@+id/notification_vibrate"
 		        android:layout_width="fill_parent"
@@ -38,7 +46,6 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/notifications_sounds"
 		        />
-
 		    <TextView
 		        android:id="@+id/tvCustomSound"
 		        android:layout_width="wrap_content"
@@ -47,7 +54,38 @@
 		        android:textAppearance="?android:attr/textAppearanceMedium"
 		        android:clickable="true" 
 		        android:padding="7sp"/>
+		    
+		    <!-- Border -->
+		    <TextView android:layout_width="fill_parent"
+				android:layout_height="2dip"
+				android:background="#FF3F3F3F" />
 
+		    <TextView
+		        android:id="@+id/textView1"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/DateTimeFormat"
+		        android:textAppearance="?android:attr/textAppearanceLarge" 
+		        android:padding="7sp"/>
+
+		    <Spinner
+		        android:id="@+id/dateTimeSpinner"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" 
+		        android:padding="7sp"/>
+
+		    <TextView
+		        android:id="@+id/textView3"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/NotificationComment"
+		        android:textAppearance="?android:attr/textAppearanceSmall" 
+		        android:padding="7sp" />
+		    
+		    <!-- Border -->
+		    <TextView android:layout_width="fill_parent"
+				android:layout_height="2dip"
+				android:background="#FF3F3F3F" />		    
 	    </LinearLayout>
     </ScrollView>
 	<RelativeLayout

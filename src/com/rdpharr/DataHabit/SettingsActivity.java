@@ -10,14 +10,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
 
 public class SettingsActivity extends TrackedActivity {
-	private CheckBox sound;
-	private CheckBox vibrate;
+	private CheckBox sound, vibrate;
+	private Spinner dateTimeSpinner;
 	private TextView customSound;
 	private String soundUri;
 	FormatHelper f;
@@ -34,6 +35,8 @@ public class SettingsActivity extends TrackedActivity {
         
 	}
 	private void getviewItems() {
+		dateTimeSpinner = (Spinner) findViewById(R.id.dateTimeSpinner);
+		//TODO: set up spinner values
 		sound = (CheckBox) findViewById(R.id.notification_sound);
 		vibrate = (CheckBox) findViewById(R.id.notification_vibrate);
 		customSound = (TextView) findViewById(R.id.tvCustomSound);
@@ -44,7 +47,8 @@ public class SettingsActivity extends TrackedActivity {
 		if (settings.getInt("sound", 0) ==1) sound.setChecked(true);
 		if (settings.getInt("vibrate", 0) ==1) vibrate.setChecked(true);
 		soundUri = settings.getString("soundUri", null);
-		
+		settings = getSharedPreferences("dateFormat", 0);
+		dateTimeSpinner.setSelection(settings.getInt("formatType", 0));
 	}
 	private void submitData(){
 		SharedPreferences settings = getSharedPreferences("notifications", 0);
@@ -61,6 +65,12 @@ public class SettingsActivity extends TrackedActivity {
 			editor.putInt("vibrate", 0);
 		}
 		editor.putString("soundUri", soundUri);
+		editor.commit();
+		
+		settings = getSharedPreferences("dateFormat", 0);
+		editor=settings.edit();
+		//TODO save spinner position
+		
 		editor.commit();
 		Toast toast = Toast.makeText(getApplicationContext(), 
 				getResources().getString(R.string.settings_saved), 
