@@ -1,5 +1,7 @@
 package com.rdpharr.DataHabit;
 
+import java.util.ArrayList;
+
 import models.FormatHelper;
 import android.app.Activity;
 import android.content.Intent;
@@ -7,8 +9,10 @@ import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,18 +33,34 @@ public class SettingsActivity extends TrackedActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         f=new FormatHelper(this);
         
-        getviewItems();
+        setupSpinner();
+		getviewItems();
         setDefaults();
         setupListeners();
         
 	}
 	private void getviewItems() {
 		dateTimeSpinner = (Spinner) findViewById(R.id.dateTimeSpinner);
-		//TODO: set up spinner values
 		sound = (CheckBox) findViewById(R.id.notification_sound);
 		vibrate = (CheckBox) findViewById(R.id.notification_vibrate);
 		customSound = (TextView) findViewById(R.id.tvCustomSound);
 		customSound.setText(f.underline(getResources().getString(R.string.custom_sound)));
+	}
+	private void setupSpinner(){
+		//String[] spinnerArray = new String[4];
+		ArrayList<String> spinnerArray = new ArrayList<String>();
+		for(int i=0; i<4; i++){
+			FormatHelper f = new FormatHelper(i);
+			//spinnerArray[i]=f.toString();
+			spinnerArray.add(f.toString());
+			Log.d("value", spinnerArray.get(i));
+		}
+		
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, 
+				android.R.layout.simple_spinner_dropdown_item, 
+				spinnerArray);
+		dateTimeSpinner = (Spinner) findViewById(R.id.dateTimeSpinner);
+		dateTimeSpinner.setAdapter(spinnerArrayAdapter);
 	}
 	private void setDefaults(){
 		SharedPreferences settings = getSharedPreferences("notifications", 0);
@@ -69,9 +89,10 @@ public class SettingsActivity extends TrackedActivity {
 		
 		settings = getSharedPreferences("dateFormat", 0);
 		editor=settings.edit();
-		//TODO save spinner position
-		
+		int i = dateTimeSpinner.getSelectedItemPosition();
+		editor.putInt("formatType", i);
 		editor.commit();
+		
 		Toast toast = Toast.makeText(getApplicationContext(), 
 				getResources().getString(R.string.settings_saved), 
 				Toast.LENGTH_SHORT);

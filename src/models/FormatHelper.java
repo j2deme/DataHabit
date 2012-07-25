@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.joda.time.DateTime;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.SpannableString;
@@ -27,12 +29,16 @@ public class FormatHelper {
 	}
 	public FormatHelper(int option){
 		dateLength = option;
+		if (dateLength==0){
+			timeLength=1;
+		}else timeLength = dateLength;
 	}
 	public SpannableString underline(String s){
 		SpannableString content = new SpannableString(s);
 		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 		return content;
 	}
+	@SuppressWarnings("deprecation")
 	public long strToMillis (String d, String t) {
 		long l=0;
 		try {
@@ -60,5 +66,9 @@ public class FormatHelper {
 	public String milliToTime(long milli){
 		String s = DateFormat.getTimeInstance(timeLength).format(milli);
 		return s;
+	}
+	public String toString(){
+		DateTime dt = new DateTime();
+		return milliToDateTime(dt.getMillis());
 	}
 }
