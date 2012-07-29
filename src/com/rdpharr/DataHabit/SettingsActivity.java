@@ -49,7 +49,7 @@ public class SettingsActivity extends TrackedActivity {
 	private void setupSpinner(){
 		//String[] spinnerArray = new String[4];
 		ArrayList<String> spinnerArray = new ArrayList<String>();
-		for(int i=0; i<4; i++){
+		for(int i=0; i<f.options; i++){
 			FormatHelper f = new FormatHelper(i);
 			//spinnerArray[i]=f.toString();
 			spinnerArray.add(f.toString());
@@ -68,7 +68,7 @@ public class SettingsActivity extends TrackedActivity {
 		if (settings.getInt("vibrate", 0) ==1) vibrate.setChecked(true);
 		soundUri = settings.getString("soundUri", null);
 		settings = getSharedPreferences("dateFormat", 0);
-		dateTimeSpinner.setSelection(settings.getInt("formatType", 0));
+		dateTimeSpinner.setSelection(settings.getInt("formatType", f.defaultOption));
 	}
 	private void submitData(){
 		SharedPreferences settings = getSharedPreferences("notifications", 0);
