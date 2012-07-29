@@ -13,7 +13,32 @@
             style="@style/TitleBarText"
             android:text="@string/select_tracker" />
     </LinearLayout>
-    <LinearLayout android:id="@+id/listLayout"
+    <RelativeLayout style="@style/BucketBar"
+	    android:id="@+id/bucket_layout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true">
+	    <TextView
+	        android:id="@+id/tvNewMonitor"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:text="Large Text"
+	        android:textAppearance="?android:attr/textAppearanceLarge" 
+	        android:padding="7sp"/>
+	    <TextView
+	        android:id="@+id/tvExport"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:padding="7sp"
+	        android:text="@string/press_hold"
+	        android:textAppearance="?android:attr/textAppearanceSmall" 
+	        android:layout_toLeftOf="@+id/tvNewMonitor"/>
+	</RelativeLayout>
+	<LinearLayout android:id="@+id/listLayout"
         android:layout_below="@+id/title_layout"
     	android:layout_above="@+id/bucket_layout"
     	android:orientation="vertical"
@@ -27,32 +52,5 @@
 	        android:layout_height="wrap_content"
 	        android:text="@string/no_monitors" android:paddingBottom="20sp" android:paddingRight="5sp" android:paddingTop="20sp"/>
     </LinearLayout>
-    <RelativeLayout style="@style/BucketBar"
-	    android:id="@+id/bucket_layout"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true">
 
-	    <TextView
-	        android:id="@+id/tvNewMonitor"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:layout_centerVertical="true"
-	        android:text="Large Text"
-	        android:textAppearance="?android:attr/textAppearanceLarge" 
-	        android:padding="7sp"/>
-
-	    <TextView
-	        android:id="@+id/tvExport"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_alignParentTop="true"
-	        android:padding="7sp"
-	        android:text="@string/press_hold"
-	        android:textAppearance="?android:attr/textAppearanceSmall" 
-	        android:layout_toLeftOf="@+id/tvNewMonitor"/>
-
-	</RelativeLayout>
 </RelativeLayout>
