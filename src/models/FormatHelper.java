@@ -1,6 +1,8 @@
 package models;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -51,17 +53,23 @@ public class FormatHelper {
 		content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 		return content;
 	}
+	@SuppressWarnings("deprecation")
 	public long strToMillis (String d, String t) {
 		long l=0;
-		DateTime dt = DateTime.parse(d+" "+t);
-		l = dt.getMillis();
-//			Date date = null, time = null;
-//			date = DateFormat.getDateInstance(dateLength).parse(d);
-//			time = DateFormat.getTimeInstance(timeLength).parse(t);
-//			date.setHours(time.getHours());
-//			date.setMinutes(time.getMinutes());
-//			date.setSeconds(time.getSeconds());
-//			l=date.getTime();
+//		DateTime dt = DateTime.parse(d+" "+t);
+//		l = dt.getMillis();
+		Date date = null, time = null;
+		try {
+			date = DateFormat.getDateInstance(dateLength).parse(d);
+			time = DateFormat.getTimeInstance(timeLength).parse(t);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		date.setHours(time.getHours());
+		date.setMinutes(time.getMinutes());
+		date.setSeconds(time.getSeconds());
+		l=date.getTime();
 		return l;
 	}
 	public String milliToDateTime(long milli){
