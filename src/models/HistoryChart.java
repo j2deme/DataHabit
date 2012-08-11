@@ -22,6 +22,7 @@ public class HistoryChart {
 	private String title;
 	private int type;
 	private double [] yValues;
+	private double min;
 	private Date [] xValues;
 	private Context ctx; 
 	
@@ -30,6 +31,7 @@ public class HistoryChart {
 		t=new Tracker(ctx, trackerId);
 		type = t.getType();
 		title = t.getName();
+		min = 0;
 		
 		mDbHelper = new dbAdapter(ctx);
         mDbHelper.open();
@@ -40,6 +42,7 @@ public class HistoryChart {
 			c.moveToPosition(i);
 			xValues[i]=new Date(c.getLong(2));
 			yValues[i]=c.getDouble(3);
+			if (yValues[i]<min) min=yValues[i];
 			if (type==5)yValues[i]=yValues[i]/(1000*60);//convert to minutes
 				
 		}
@@ -63,6 +66,7 @@ public class HistoryChart {
 	    renderer.setLabelsTextSize(15);
 	    renderer.setLegendTextSize(15);
 	    renderer.setPointSize(5);
+	    renderer.setXAxisMin(min);
 	    renderer.setZoomButtonsVisible(true);
 	    renderer.setMargins(new int[] { 20, 30, 15, 0 });
 	    XYSeriesRenderer r = new XYSeriesRenderer();
