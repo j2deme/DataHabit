@@ -121,14 +121,14 @@ public class SettingsActivity extends TrackedActivity {
             }
         });
         final TextView tvTrackerSave = (TextView) findViewById(R.id.tvTrackerSave);
-        tvTrackerSave.setText(f.underline("Save"));
+        tvTrackerSave.setText(f.underline(getResources().getString(R.string.save)));
         tvTrackerSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	submitData();
             }
         });
         TextView tvTrackerCancel = (TextView)findViewById(R.id.tvTrackerCancel);
-        tvTrackerCancel.setText(f.underline("Cancel"));
+        tvTrackerCancel.setText(f.underline(getResources().getString(R.string.cancel)));
         tvTrackerCancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	finish();

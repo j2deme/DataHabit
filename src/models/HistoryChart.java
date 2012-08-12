@@ -13,16 +13,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.util.Log;
 
 import com.rdpharr.DataHabit.R;
 
 public class HistoryChart {
 	private dbAdapter mDbHelper;
 	private Tracker t;
-	private String title;
+	private String title, dateFormat;
 	private int type;
 	private double [] yValues;
-	private double min;
+	private double yMin; 
+	private Date xMin, xMax;
 	private Date [] xValues;
 	private Context ctx; 
 	
@@ -31,8 +33,8 @@ public class HistoryChart {
 		t=new Tracker(ctx, trackerId);
 		type = t.getType();
 		title = t.getName();
-		min = 0;
-		
+		yMin = 0;
+		dateFormat="dd-MMM-yy hhaa";
 		mDbHelper = new dbAdapter(ctx);
         mDbHelper.open();
 		Cursor c = mDbHelper.fetchAllData(trackerId);
@@ -41,8 +43,15 @@ public class HistoryChart {
 		for (int i=0;i<c.getCount();i++){
 			c.moveToPosition(i);
 			xValues[i]=new Date(c.getLong(2));
+			if (i==0){
+				xMin=xValues[i];
+				xMax=xValues[i];
+			}
+			if (xMin.compareTo(xValues[i])>0)xMin=xValues[i];
+			if (xMax.compareTo(xValues[i])<0)xMax=xValues[i];
+			
 			yValues[i]=c.getDouble(3);
-			if (yValues[i]<min) min=yValues[i];
+			if (yValues[i]<yMin) yMin=yValues[i];
 			if (type==5)yValues[i]=yValues[i]/(1000*60);//convert to minutes
 				
 		}
@@ -50,7 +59,7 @@ public class HistoryChart {
 		mDbHelper.close();
 	}
 	public Intent showChart(Context ctx){
-		return ChartFactory.getTimeChartIntent(ctx, getDataset(ctx), getRenderer(), "yy-MM-dd hhaa");
+		return ChartFactory.getTimeChartIntent(ctx, getDataset(ctx), getRenderer(), dateFormat);
 	}
 	private XYMultipleSeriesDataset getDataset(Context ctx){
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
@@ -66,8 +75,10 @@ public class HistoryChart {
 	    renderer.setLabelsTextSize(15);
 	    renderer.setLegendTextSize(15);
 	    renderer.setPointSize(5);
-	    renderer.setXAxisMin(min);
+	    renderer.setYAxisMin(yMin);
 	    renderer.setZoomButtonsVisible(true);
+	    renderer.setPanLimits(new double[] { xMin.getTime(), xMax.getTime(), 0, 1000});
+	    renderer.setZoomLimits(new double[] { xMin.getTime(), xMax.getTime(), 0, 1000 });
 	    renderer.setMargins(new int[] { 20, 30, 15, 0 });
 	    XYSeriesRenderer r = new XYSeriesRenderer();
 	    r.setColor(Color.WHITE);

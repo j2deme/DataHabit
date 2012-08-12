@@ -92,6 +92,7 @@
     <string name="AvgDataPoints">Average of Data Points</string>
     <string name="SumDataPoints">Total of Data Points</string>
     <string name="DateTimeFormat">Date Time Format</string>
+    <string name="ChartResolution">Chart Resolution</string>
     <string name="NotificationSettings">Notification Settings</string>
     <string name="NotificationComment">Additional formats are available through the settings page on your device</string>
 </resources>

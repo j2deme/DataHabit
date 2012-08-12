@@ -67,7 +67,7 @@ public class HistoryActivity extends TrackedListActivity {
 	            public void onClick(View v) {
 	            	HistoryChart h = new HistoryChart(HistoryActivity.this, trackerID);
 	            	Intent i = h.showChart(HistoryActivity.this);
-	            	HistoryActivity.this.startActivity(i);
+	            	HistoryActivity.this.startActivity(i);	
 	            }
 	        });
 	        
