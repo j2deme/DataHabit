@@ -49,7 +49,7 @@ public class SettingsActivity extends TrackedActivity {
 	private void setupSpinner(){
 		//String[] spinnerArray = new String[4];
 		ArrayList<String> spinnerArray = new ArrayList<String>();
-		for(int i=0; i<f.options; i++){
+		for(int i=0; i<=f.options; i++){
 			FormatHelper f = new FormatHelper(i);
 			//spinnerArray[i]=f.toString();
 			spinnerArray.add(f.toString());
