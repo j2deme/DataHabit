@@ -1,19 +1,16 @@
 package models;
 
 import java.util.Date;
-
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.util.Log;
 
 import com.rdpharr.DataHabit.R;
 
@@ -21,9 +18,9 @@ public class HistoryChart {
 	private dbAdapter mDbHelper;
 	private Tracker t;
 	private String title, dateFormat;
-	private int type;
+	private int type, daysShownAtStartup;
 	private double [] yValues;
-	private double yMin; 
+	private double yMin, yMax; 
 	private Date xMin, xMax;
 	private Date [] xValues;
 	private Context ctx; 
@@ -31,15 +28,19 @@ public class HistoryChart {
 	public HistoryChart (Context ctx, int trackerId){
 		this.ctx = ctx;
 		t=new Tracker(ctx, trackerId);
+		dateFormat="dd-MMM hhaa";
+		daysShownAtStartup = 14; //days of data to show on initial chart view (unzoomed)
+		populateValues();
+	}
+	private void populateValues(){
 		type = t.getType();
 		title = t.getName();
-		yMin = 0;
-		dateFormat="dd-MMM-yy hhaa";
 		mDbHelper = new dbAdapter(ctx);
         mDbHelper.open();
-		Cursor c = mDbHelper.fetchAllData(trackerId);
+		Cursor c = mDbHelper.fetchAllData(t.getId());
 		yValues = new double[c.getCount()];
 		xValues = new Date[c.getCount()];
+		yMin = 0;
 		for (int i=0;i<c.getCount();i++){
 			c.moveToPosition(i);
 			xValues[i]=new Date(c.getLong(2));
@@ -51,9 +52,10 @@ public class HistoryChart {
 			if (xMax.compareTo(xValues[i])<0)xMax=xValues[i];
 			
 			yValues[i]=c.getDouble(3);
+			if (type==5)yValues[i]=yValues[i]/(1000*60);//Stopwatch: convert to minutes from millis
+			if(i==0)yMax=yValues[i];
+			if (yValues[i]>yMax) yMax=yValues[i];
 			if (yValues[i]<yMin) yMin=yValues[i];
-			if (type==5)yValues[i]=yValues[i]/(1000*60);//convert to minutes
-				
 		}
 		c.close();
 		mDbHelper.close();
@@ -77,9 +79,15 @@ public class HistoryChart {
 	    renderer.setPointSize(5);
 	    renderer.setYAxisMin(yMin);
 	    renderer.setZoomButtonsVisible(true);
-	    renderer.setPanLimits(new double[] { xMin.getTime(), xMax.getTime(), 0, 1000});
-	    renderer.setZoomLimits(new double[] { xMin.getTime(), xMax.getTime(), 0, 1000 });
+	    renderer.setPanLimits(new double[] { xMin.getTime(), xMax.getTime(), yMin, yMax});
+	    renderer.setZoomLimits(new double[] { xMin.getTime(), xMax.getTime(), yMin, yMax });
+	    renderer.setRange(new double[]{
+	    		xMax.getTime()-daysShownAtStartup*24*60*60*1000,
+	    		xMax.getTime(), 
+	    		yMin, 
+	    		yMax});
 	    renderer.setMargins(new int[] { 20, 30, 15, 0 });
+
 	    XYSeriesRenderer r = new XYSeriesRenderer();
 	    r.setColor(Color.WHITE);
 	    r.setFillBelowLine(true);
