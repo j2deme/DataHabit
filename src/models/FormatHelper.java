@@ -28,11 +28,11 @@ public class FormatHelper {
 	/**
 	 * Number of options available for date time formats
 	 */
-	public int options = 4; //number of options
+	public int options = 3; //number of options
 	/**
 	 * default option for datetime format
 	 */
-	public int defaultOption = 4;
+	public int defaultOption = 3;
 
 	public FormatHelper(Context ctx){
 		//get type from settings
@@ -60,10 +60,10 @@ public class FormatHelper {
 //		l = dt.getMillis();
 		Date date = null, time = null;
 		try {
+			//TODO:get this to work with option 4
 			date = DateFormat.getDateInstance(dateLength).parse(d);
 			time = DateFormat.getTimeInstance(timeLength).parse(t);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		date.setHours(time.getHours());
