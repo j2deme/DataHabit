@@ -1,5 +1,6 @@
 package com.rdpharr.DataHabit;
 
+import models.WhatsNewDialog;
 import models.dbAdapter;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,10 @@ public class DashboardActivity extends TrackedActivity {
 	    //start reminder service
         AlarmLogic.startAlarm(this);
 	 
+        //check for new version
+        WhatsNewDialog w = new WhatsNewDialog(this);
+        w.showDialog();
+        
 	    //attach event handler to dash buttons
 	    DashboardClickListener dBClickListener = new DashboardClickListener();
 	    findViewById(R.id.dashboard_button_export).setOnClickListener((DashboardClickListener) dBClickListener);

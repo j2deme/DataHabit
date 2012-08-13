@@ -61,7 +61,6 @@
           android:theme="@android:style/Theme.NoTitleBar"></activity>
         <activity android:name="org.achartengine.chartdemo.demo.chart.XYChartBuilder"/>
 		<activity android:name="org.achartengine.chartdemo.demo.chart.PieChartBuilder"/>
-		<activity android:name="org.achartengine.chartdemo.demo.chart.PieChartBuilder" />
         <activity android:name="org.achartengine.GraphicalActivity" />
         <!-- Ad stuff -->
         <activity android:name="com.google.ads.AdActivity"

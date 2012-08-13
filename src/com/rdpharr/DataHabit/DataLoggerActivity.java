@@ -3,6 +3,7 @@ package com.rdpharr.DataHabit;
 import models.DataPoint;
 import models.FormatHelper;
 import models.Tracker;
+import models.WhatsNewDialog;
 
 import org.joda.time.DateTime;
 import android.app.DatePickerDialog;
@@ -44,6 +45,11 @@ public class DataLoggerActivity extends TrackedActivity {
 		
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        //check for new version
+        WhatsNewDialog w = new WhatsNewDialog(this);
+        w.showDialog();
+        
         f = new FormatHelper(this);
         Intent i = getIntent();
         trackerID = i.getIntExtra("TrackerRowID", 0);
