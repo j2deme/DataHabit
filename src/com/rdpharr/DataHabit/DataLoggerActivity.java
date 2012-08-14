@@ -11,6 +11,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
@@ -42,6 +43,8 @@ public class DataLoggerActivity extends TrackedActivity {
 	private DataPoint d;
 	FormatHelper f;
 	boolean timerRunning;
+	private long time;
+	private DateTime dt;
 		
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,13 +68,14 @@ public class DataLoggerActivity extends TrackedActivity {
 	        getControls();
 	        t = new Tracker(this, trackerID);
 	        d = new DataPoint(this,trackerID,dataRowID);
+	        dt = new DateTime(d.getTime());
 			
 	        //setup form data
 	        title.setText(t.getName());
 	        UtilDat.setInputControl(rlTimer, t.getType(), null, null, rb, sb, et, rg, b3);
 		    UtilDat.setValue(etSecs, etMins, etHours, t.getType(),d.getValue(),rb, sb, et, rg, b3);
 			etComment.setText(d.getComment());
-			long time = new DateTime(d.getTime()).getMillis();
+			time = dt.getMillis();
 			tvStartTime.setText(f.underline(f.milliToTime(time)));
 			tvStartDate.setText(f.underline(f.milliToDate(time)));
 
@@ -116,38 +120,33 @@ public class DataLoggerActivity extends TrackedActivity {
 	        });
 			tvStartDate.setOnClickListener(new View.OnClickListener() {
 		          public void onClick(View v) {
-		        	  	String s = (String) tvStartDate.getText().toString();
-		        	  	String[] s2 = s.split("-");
-		        	  	int mYear = Integer.parseInt(s2[0]);
-		        	    int mMonth = Integer.parseInt(s2[1])-1;
-		        	    int mDay = Integer.parseInt(s2[2]);
-		        	    DatePickerDialog dtDialog = new DatePickerDialog(DataLoggerActivity.this, new DatePickerDialog.OnDateSetListener() {
-	    	                public void onDateSet(DatePicker view, int year, 
-	                                int monthOfYear, int dayOfMonth) {
-	    	                	tvStartDate.setText(f.underline(
-	    	                			String.valueOf(year) +
-	    	                			"-" +
-	    	                			String.valueOf(monthOfYear+1)+
-	    	                			"-" +
-	    	                			String.valueOf(dayOfMonth)));
-	    	                }
-	        	    },mYear, mMonth, mDay);
-	        	  dtDialog.show();
-		          }
+		        	  	int mYear = dt.getYear();
+		        	    int mMonth = dt.getMonthOfYear()-1;
+		        	    int mDay = dt.getDayOfMonth();
+		        	    DatePickerDialog dtDialog = new DatePickerDialog(DataLoggerActivity.this, 
+		        	    		new DatePickerDialog.OnDateSetListener() {
+	    	                		public void onDateSet(DatePicker view, int year, 
+	    	                				int monthOfYear, int dayOfMonth) {
+	    	                			dt = dt.withYear(year);
+			    	                	dt = dt.withMonthOfYear(monthOfYear+1);
+			    	                	dt = dt.withDayOfMonth(dayOfMonth);
+			    	                	tvStartDate.setText(f.underline(f.milliToDate(dt.getMillis())));
+	    	                		}
+		        	    	},mYear, mMonth, mDay);
+		        	    dtDialog.show();
+		          	}
 			});
 			tvStartTime.setOnClickListener(new View.OnClickListener() {
 		          public void onClick(View v) {
-		        	  	String s = (String) tvStartTime.getText().toString();
-		        	  	String[] s2 = s.split(":");
-		        	    int mHour = Integer.parseInt(s2[0]);
-		        	    int mMinute= Integer.parseInt(s2[1]);
+		        	  	int mHour = dt.getHourOfDay();
+		        	    int mMinute= dt.getMinuteOfHour();
 		        	    
 		        	    TimePickerDialog tpDialog = new TimePickerDialog(DataLoggerActivity.this, new TimePickerDialog.OnTimeSetListener() {
 	        	                public void onTimeSet(android.widget.TimePicker view,
 	        	                        int hourOfDay, int minute) {
-	        	                	tvStartTime.setText(f.underline(
-	        	                			String.valueOf(hourOfDay) +":" 
-	        	                			+ String.valueOf(String.format("%02d",minute))));
+	        	                	dt = dt.withHourOfDay(hourOfDay);
+	        	                	dt = dt.withMinuteOfHour(minute);
+	        	                	tvStartTime.setText(f.underline(f.milliToTime(dt.getMillis())));
 	        	                }
 		        	    },mHour, mMinute, false);
 		        	  tpDialog.show();

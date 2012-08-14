@@ -57,6 +57,7 @@ public class TrackerActivity extends TrackedActivity {
 	private int trackerID; //tracker id from  intent, new is 0
 	private Tracker t;
 	private FormatHelper f;
+	private DateTime dt;
 	
 	 
 	public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,8 @@ public class TrackerActivity extends TrackedActivity {
         trackerID = i.getIntExtra("TrackerRowID", 0);
         t = new Tracker(this, trackerID);
         f=new FormatHelper(this);
+        dt = new DateTime();
+		
         
         findViewItems();
         setView();
@@ -76,43 +79,38 @@ public class TrackerActivity extends TrackedActivity {
 	}
 	public void reminderListeners(){
 		tvStartDate.setOnClickListener(new View.OnClickListener() {
-	          public void onClick(View v) {
-	        	  	String s = (String) tvStartDate.getText().toString();
-	        	  	String[] s2 = s.split("-");
-	        	  	int mYear = Integer.parseInt(s2[0]);
-	        	    int mMonth = Integer.parseInt(s2[1])-1;
-	        	    int mDay = Integer.parseInt(s2[2]);
-	        	    DatePickerDialog dtDialog = new DatePickerDialog(TrackerActivity.this, new DatePickerDialog.OnDateSetListener() {
-    	                public void onDateSet(DatePicker view, int year, 
-                                int monthOfYear, int dayOfMonth) {
-    	                	tvStartDate.setText(f.underline(
-    	                			String.valueOf(year) +
-    	                			"-" +
-    	                			String.valueOf(monthOfYear+1)+
-    	                			"-" +
-    	                			String.valueOf(dayOfMonth)));
-    	                }
-        	    },mYear, mMonth, mDay);
-        	  dtDialog.show();
-	          }
+			public void onClick(View v) {
+        	  	int mYear = dt.getYear();
+        	    int mMonth = dt.getMonthOfYear()-1;
+        	    int mDay = dt.getDayOfMonth();
+        	    DatePickerDialog dtDialog = new DatePickerDialog(TrackerActivity.this, 
+        	    		new DatePickerDialog.OnDateSetListener() {
+	                		public void onDateSet(DatePicker view, int year, 
+	                				int monthOfYear, int dayOfMonth) {
+	                			dt = dt.withYear(year);
+	    	                	dt = dt.withMonthOfYear(monthOfYear+1);
+	    	                	dt = dt.withDayOfMonth(dayOfMonth);
+	    	                	tvStartDate.setText(f.underline(f.milliToDate(dt.getMillis())));
+	                		}
+        	    	},mYear, mMonth, mDay);
+        	    dtDialog.show();
+          	}
 		});
 		tvStartTime.setOnClickListener(new View.OnClickListener() {
-	          public void onClick(View v) {
-	        	  	String s = (String) tvStartTime.getText().toString();
-	        	  	String[] s2 = s.split(":");
-	        	    int mHour = Integer.parseInt(s2[0]);
-	        	    int mMinute= Integer.parseInt(s2[1]);
-	        	    
-	        	    TimePickerDialog tpDialog = new TimePickerDialog(TrackerActivity.this, new TimePickerDialog.OnTimeSetListener() {
-        	                public void onTimeSet(android.widget.TimePicker view,
-        	                        int hourOfDay, int minute) {
-        	                	tvStartTime.setText(
-        	                			f.underline(
-        	                					String.format("%02d:%02d",hourOfDay,minute)));
-        	                }
-	        	    },mHour, mMinute, false);
-	        	  tpDialog.show();
-	          }
+			public void onClick(View v) {
+        	  	int mHour = dt.getHourOfDay();
+        	    int mMinute= dt.getMinuteOfHour();
+        	    
+        	    TimePickerDialog tpDialog = new TimePickerDialog(TrackerActivity.this, new TimePickerDialog.OnTimeSetListener() {
+    	                public void onTimeSet(android.widget.TimePicker view,
+    	                        int hourOfDay, int minute) {
+    	                	dt = dt.withHourOfDay(hourOfDay);
+    	                	dt = dt.withMinuteOfHour(minute);
+    	                	tvStartTime.setText(f.underline(f.milliToTime(dt.getMillis())));
+    	                }
+        	    },mHour, mMinute, false);
+        	  tpDialog.show();
+          }
 		});
 		tvRemindCycle.setOnClickListener(new View.OnClickListener() {
 	          public void onClick(View v) {
