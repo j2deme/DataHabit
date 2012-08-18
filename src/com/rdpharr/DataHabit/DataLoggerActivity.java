@@ -1,17 +1,19 @@
 package com.rdpharr.DataHabit;
 
+import models.Analytic;
 import models.DataPoint;
 import models.FormatHelper;
 import models.Tracker;
 import models.WhatsNewDialog;
 
 import org.joda.time.DateTime;
+
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
@@ -22,11 +24,10 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.android.apps.analytics.easytracking.TrackedActivity;
 import controllers.UtilDat;
 
 
-public class DataLoggerActivity extends TrackedActivity {
+public class DataLoggerActivity extends Activity {
 	private RatingBar rb;
 	private SeekBar sb;
 	private EditText et;
@@ -67,7 +68,8 @@ public class DataLoggerActivity extends TrackedActivity {
 	        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	        getControls();
 	        t = new Tracker(this, trackerID);
-	        d = new DataPoint(this,trackerID,dataRowID);
+	        Analytic a = new Analytic("DataLogger",this,t);
+	    	d = new DataPoint(this,trackerID,dataRowID);
 	        dt = new DateTime(d.getTime());
 			
 	        //setup form data

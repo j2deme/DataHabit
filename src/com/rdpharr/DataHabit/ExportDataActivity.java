@@ -1,5 +1,6 @@
 package com.rdpharr.DataHabit;
 
+import models.Analytic;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ public class ExportDataActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    Analytic a = new Analytic("Export Data",this,null);
 	    
 	    final CharSequence[] items = {"Separate Date and Time Fields", "Include Last Update Time"};
 	    

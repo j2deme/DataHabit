@@ -1,15 +1,16 @@
 package com.rdpharr.DataHabit;
 
+import models.Analytic;
 import models.Stats;
+import models.Tracker;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.apps.analytics.easytracking.TrackedActivity;
-
-public class statsActivity extends TrackedActivity {
+public class statsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent i = getIntent();
@@ -22,6 +23,8 @@ public class statsActivity extends TrackedActivity {
         	LinearLayout ll = (LinearLayout) findViewById(R.id.ll_stats);
         	TextView tv = (TextView) findViewById(R.id.title_text);
         	Stats s = new Stats(trackerID, ll,tv, statsActivity.this);
+        	Tracker t=new Tracker(this, trackerID);
+        	Analytic a = new Analytic("Statistics",this,t);
         	s.show();
         }
 	}

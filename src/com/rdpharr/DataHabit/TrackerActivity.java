@@ -7,11 +7,13 @@
 
 package com.rdpharr.DataHabit;
 
+import models.Analytic;
 import models.FormatHelper;
 import models.Tracker;
 
 import org.joda.time.DateTime;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -35,12 +37,9 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import com.google.android.apps.analytics.easytracking.TrackedActivity;
-
 import controllers.UtilDat;
 
-public class TrackerActivity extends TrackedActivity {
+public class TrackerActivity extends Activity {
 	private TextView tvName;//Name of Tracker
 	private Spinner spinner;//Type of Tracker
 	private CheckBox cbEnabled; //are reminders enabled?
@@ -68,6 +67,7 @@ public class TrackerActivity extends TrackedActivity {
         Intent i = getIntent();
         trackerID = i.getIntExtra("TrackerRowID", 0);
         t = new Tracker(this, trackerID);
+        Analytic a = new Analytic("Tracker Setup",this,t);
         f=new FormatHelper(this);
         dt = new DateTime();
 		

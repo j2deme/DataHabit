@@ -2,6 +2,7 @@ package com.rdpharr.DataHabit;
 
 import java.util.ArrayList;
 
+import models.Analytic;
 import models.FormatHelper;
 import android.app.Activity;
 import android.content.Intent;
@@ -18,9 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.apps.analytics.easytracking.TrackedActivity;
-
-public class SettingsActivity extends TrackedActivity {
+public class SettingsActivity extends Activity {
 	private CheckBox sound, vibrate;
 	private Spinner dateTimeSpinner;
 	private TextView customSound;
@@ -33,6 +32,7 @@ public class SettingsActivity extends TrackedActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         f=new FormatHelper(this);
         
+        Analytic a = new Analytic("Settings",this,null);
         setupSpinner();
 		getviewItems();
         setDefaults();

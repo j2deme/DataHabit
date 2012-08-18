@@ -1,9 +1,11 @@
 package com.rdpharr.DataHabit;
 
+import models.Analytic;
 import models.FormatHelper;
 import models.Tracker;
 import models.dbAdapter;
 import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -20,9 +22,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.google.android.apps.analytics.easytracking.TrackedListActivity;
-
-public class TrackerListActivity extends TrackedListActivity {
+public class TrackerListActivity extends ListActivity {
 	FormatHelper f;
 	private dbAdapter mDbHelper;
 	private int trackerId;
@@ -33,6 +33,7 @@ public class TrackerListActivity extends TrackedListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         f=new FormatHelper(this);
+        Analytic a = new Analytic("TrackerList",this,null);
         
         // fill list
         mDbHelper = new dbAdapter(this);

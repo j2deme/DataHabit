@@ -1,16 +1,16 @@
 package com.rdpharr.DataHabit;
 
+import models.Analytic;
 import models.WhatsNewDialog;
 import models.dbAdapter;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import com.google.android.apps.analytics.easytracking.TrackedActivity;
-
 import controllers.AlarmLogic;
 
-public class DashboardActivity extends TrackedActivity {
+public class DashboardActivity extends Activity {
+	Analytic a = new Analytic("Dashboard",this,null);
 	private dbAdapter mDbHelper;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
