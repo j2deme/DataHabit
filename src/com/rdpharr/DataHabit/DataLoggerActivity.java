@@ -70,7 +70,6 @@ public class DataLoggerActivity extends Activity {
 	        t = new Tracker(this, trackerID);
 	        Analytic a = new Analytic(this);
 	        a.logPageView("DataLogger");
-	        a.logTracker(t);
 	        
 	    	d = new DataPoint(this,trackerID,dataRowID);
 	        dt = new DateTime(d.getTime());

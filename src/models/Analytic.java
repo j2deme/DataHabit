@@ -1,6 +1,7 @@
 package models;
 
 import android.content.Context;
+import android.database.Cursor;
 
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.rdpharr.DataHabit.R;
@@ -37,10 +38,24 @@ public class Analytic {
 	 * @param t Tracker to pull data from
 	 */
 	public void logTracker (Tracker t){
+		
 		analytic.setCustomVar(1, "Tracker Name", t.getName());
+		
+		
 		String[] mTestArray = c.getResources().getStringArray(R.array.input_types); 
-		analytic.setCustomVar(1, "Tracker Type", mTestArray[t.getType()]);
-		analytic.setCustomVar(1, "Reminders Enabled", Integer.toString(t.getReminderEnabled()));
+		analytic.setCustomVar(2, "Tracker Type", mTestArray[t.getType()]);
+		
+		
+		String reminders = "Reminder Off";
+		if (t.getReminderEnabled()==1) reminders = "Reminder On";
+		analytic.setCustomVar(3, "Reminders Enabled", reminders);
+		
+		
+		dbAdapter mDbHelper= new dbAdapter(c);
+        mDbHelper.open();
+		Cursor d = mDbHelper.fetchAllData(t.getId());
+		analytic.setCustomVar(4, "Data Count", Integer.toString(d.getCount()));
+		mDbHelper.close();
+		
 	}
-
 }
