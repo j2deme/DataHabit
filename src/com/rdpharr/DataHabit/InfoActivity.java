@@ -8,7 +8,8 @@ public class InfoActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    Analytic a = new Analytic("Info",this,null);
+	    Analytic a = new Analytic(this);
+	    a.logPageView("info");
 	    setContentView(R.layout.info);
 	}
 

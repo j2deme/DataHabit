@@ -14,7 +14,8 @@ public class ExportDataActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    Analytic a = new Analytic("Export Data",this,null);
+	    Analytic a = new Analytic(this);
+	    a.logPageView("Export Data");
 	    
 	    final CharSequence[] items = {"Separate Date and Time Fields", "Include Last Update Time"};
 	    
@@ -46,6 +47,7 @@ public class ExportDataActivity extends Activity {
 	    builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
       	    public void onClick(DialogInterface dialog, int whichButton) {
       	      // Canceled.
+      	    	finish();
       	    }
       	  });
 	    

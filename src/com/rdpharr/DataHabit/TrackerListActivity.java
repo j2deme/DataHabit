@@ -33,7 +33,8 @@ public class TrackerListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         f=new FormatHelper(this);
-        Analytic a = new Analytic("TrackerList",this,null);
+        Analytic a = new Analytic(this);
+        a.logPageView("TrackerList");
         
         // fill list
         mDbHelper = new dbAdapter(this);

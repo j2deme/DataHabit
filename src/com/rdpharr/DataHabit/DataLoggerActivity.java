@@ -68,7 +68,10 @@ public class DataLoggerActivity extends Activity {
 	        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	        getControls();
 	        t = new Tracker(this, trackerID);
-	        Analytic a = new Analytic("DataLogger",this,t);
+	        Analytic a = new Analytic(this);
+	        a.logPageView("DataLogger");
+	        a.logTracker(t);
+	        
 	    	d = new DataPoint(this,trackerID,dataRowID);
 	        dt = new DateTime(d.getTime());
 			

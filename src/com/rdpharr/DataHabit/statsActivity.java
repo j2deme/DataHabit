@@ -24,7 +24,9 @@ public class statsActivity extends Activity {
         	TextView tv = (TextView) findViewById(R.id.title_text);
         	Stats s = new Stats(trackerID, ll,tv, statsActivity.this);
         	Tracker t=new Tracker(this, trackerID);
-        	Analytic a = new Analytic("Statistics",this,t);
+        	Analytic a = new Analytic(this);
+        	a.logPageView("Statistics");
+        	a.logTracker(t);
         	s.show();
         }
 	}

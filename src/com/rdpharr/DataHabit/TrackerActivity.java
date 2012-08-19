@@ -67,7 +67,9 @@ public class TrackerActivity extends Activity {
         Intent i = getIntent();
         trackerID = i.getIntExtra("TrackerRowID", 0);
         t = new Tracker(this, trackerID);
-        Analytic a = new Analytic("Tracker Setup",this,t);
+        Analytic a = new Analytic(this);
+        a.logPageView("Tracker Setup");
+        a.logTracker(t);
         f=new FormatHelper(this);
         dt = new DateTime();
 		

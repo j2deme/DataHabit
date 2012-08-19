@@ -32,7 +32,8 @@ public class SettingsActivity extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         f=new FormatHelper(this);
         
-        Analytic a = new Analytic("Settings",this,null);
+        Analytic a = new Analytic(this);
+        a.logPageView("Settings");
         setupSpinner();
 		getviewItems();
         setDefaults();

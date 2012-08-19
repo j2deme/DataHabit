@@ -44,7 +44,9 @@ public class HistoryActivity extends ListActivity {
 
         }else{
         	t=new Tracker(this, trackerID);
-        	Analytic a = new Analytic("History",this,t);
+        	Analytic a = new Analytic(this);
+        	a.logPageView("History");
+        	a.logTracker(t);
         	trackerType = t.getType();
         	
 	        fillList();

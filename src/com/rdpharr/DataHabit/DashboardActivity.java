@@ -10,7 +10,6 @@ import android.view.View;
 import controllers.AlarmLogic;
 
 public class DashboardActivity extends Activity {
-	Analytic a = new Analytic("Dashboard",this,null);
 	private dbAdapter mDbHelper;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -21,7 +20,10 @@ public class DashboardActivity extends Activity {
 	    
 	    //start reminder service
         AlarmLogic.startAlarm(this);
-	 
+        
+        Analytic a = new Analytic(this);
+        a.logPageView("Dashboard");
+        	 
         //check for new version
         WhatsNewDialog w = new WhatsNewDialog(this);
         w.showDialog();
