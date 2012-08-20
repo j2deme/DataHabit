@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-    
     <string name="WhatsNewDialog">New in Version 1.7:\n - Improved handing of Date and Time formats (visit the app settings)\n - Imporved chart formatting (view from history page)</string>
-    
-    
     <string name="app_name">DataHabit</string>
     <string name="no_monitors">No trackers. Please add one using the buttons below</string>
     <string name="no_history">No data.</string>
