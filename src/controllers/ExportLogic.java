@@ -18,17 +18,12 @@ public class ExportLogic {
 	private static dbAdapter mDbHelper;
 	private static int trackerType;
 	static FormatHelper f;
-	public static String exportData(boolean[] options, Context ctx){
+
+	public static String exportSomeData(boolean[] options, Context ctx, long[] selectedItems){
 		//options = {"Separate Date and Time Fields", "Include Last Update Time"};
-	    
-		mDbHelper = new dbAdapter(ctx);
-        mDbHelper.open();
-		Cursor c = mDbHelper.fetchAllTrackers();
         String strFile=trackerCsvHeader(options, ctx);
-        for (int i=0; i<c.getCount(); i++){
-        	c.moveToPosition(i);
-        	int trackerID = c.getInt(0);
-        	strFile = strFile + trackerCsv(options, ctx, trackerID);
+        for (int i=0; i<selectedItems.length; i++){
+        	strFile = strFile + trackerCsv(options, ctx, (int) selectedItems[i]);
         }
         String outFile = makeFile("DataHabit.csv", strFile);
         return outFile;
@@ -82,6 +77,7 @@ public class ExportLogic {
 					strCSV = strCSV + "\""+f.milliToTime(d.getLong(5))+ "\",";
 				}
 			}
+			Log.d("fileString", strCSV);
 			strCSV =strCSV + "\n";
 		}
 		d.close();

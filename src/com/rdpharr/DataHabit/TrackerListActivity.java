@@ -37,8 +37,7 @@ public class TrackerListActivity extends ListActivity {
         a.logPageView("TrackerList");
         
         // fill list
-        mDbHelper = new dbAdapter(this);
-        mDbHelper.open();
+
         fillList();
                 
         final TextView tvNewMonitor = (TextView) findViewById(R.id.tvNewMonitor);
@@ -60,8 +59,9 @@ public class TrackerListActivity extends ListActivity {
           });
     }
     private void fillList() {
+        mDbHelper = new dbAdapter(this);
+        mDbHelper.open();
 		Cursor c = mDbHelper.fetchAllTrackers();
-        startManagingCursor(c);
         String[] name_str = new String[] { dbAdapter.KEY_Tracker_Name };
         int[] name_field = new int[] { R.id.tvTitle };
         SimpleCursorAdapter tracker_names =

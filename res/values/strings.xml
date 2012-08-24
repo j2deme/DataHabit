@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-    <string name="WhatsNewDialog">New in Version 1.7:\n - Improved handing of Date and Time formats (visit the app settings)\n - Imporved chart formatting (view from history page)</string>
+    <string name="WhatsNewDialog">New in Version 1.8:\n - Allow move to SD card\n - Improved Data Export Function \n</string>
     <string name="app_name">DataHabit</string>
     <string name="no_monitors">No trackers. Please add one using the buttons below</string>
     <string name="no_history">No data.</string>
     <string name="createTracker">Create New Tracker</string>
     <string name="TrackerName">Tracker Name</string>
     <string name="enter_name">Click here to type name</string>
-    <string name="reminder_name_label">Name of Monitor</string>
     <string name="choice">Your Choice</string>
     <string name="reminder_spinner_label">Choose Your Data Input Weapon</string>
     <string name="star_rating">Star Rating</string>
@@ -96,4 +95,11 @@
     <string name="WhatsNew">New in Datahabit</string>
     <string name="NotificationSettings">Notification Settings</string>
     <string name="NotificationComment">Additional formats are available through the settings page on your device</string>
+    <string name="SeparateDateTime">Separate Date and Time Fields</string>
+    <string name="IncludeLastUpdateTime">Include Last Update Time</string>
+    <string name="ExportOptions">Export Options</string>
+    <string name="SelectAll">Select All</string>
+    <string name="SelectNone">Select None</string>
+    <string name="FileFormatOptions">File Format Options</string>
+    <string name="SelectTrackersToExport">Select Trackers to Export</string>
 </resources>

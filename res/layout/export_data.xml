@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_layout"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout
+        android:id="@+id/title_layout"
+        style="@style/TitleBar"
+        android:layout_width="match_parent" >
+        <ImageView style="@style/TitleBarSeparator" />
+        <TextView
+            style="@style/TitleBarText"
+            android:text="@string/ExportOptions" />
+    </LinearLayout>
+    
+    <RelativeLayout style="@style/BucketBar"
+	    android:id="@+id/bucket_layout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true">
+
+	    <TextView
+	        android:id="@+id/tvExport"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:clickable="true"
+	        android:padding="7sp"
+	        android:text="@string/activity_export"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	    <TextView
+	        android:id="@+id/tvCancel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:clickable="true"
+	        android:padding="7sp"
+	        android:text="@string/cancel"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	</RelativeLayout>
+    
+	<LinearLayout android:id="@+id/listLayout"
+        android:layout_below="@+id/title_layout"
+    	android:orientation="vertical"
+    	android:layout_above="@id/bucket_layout"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content">
+
+		<TextView
+		    android:id="@+id/textView1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:padding="7sp"
+		    android:text="@string/FileFormatOptions"
+		    android:textSize="@dimen/text_size_medium" />
+		<!-- Border -->
+	    <TextView android:layout_width="fill_parent"
+			android:layout_height="2dip"
+			android:background="#FF3F3F3F" />	
+
+    	<CheckBox
+    	    android:id="@+id/cbSeparateDateTime"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/SeparateDateTime" />
+
+    	<CheckBox
+    	    android:id="@+id/cbIncludeLastUpdate"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/IncludeLastUpdateTime" />
+    	
+    	<!-- Border -->
+	    <TextView android:layout_width="fill_parent"
+			android:layout_height="2dip"
+			android:background="#FF3F3F3F" />		    
+
+    	<TextView
+    	    android:id="@+id/textView2"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:padding="7sp"
+    	    android:text="@string/SelectTrackersToExport"
+    	    android:textSize="@dimen/text_size_medium" />
+	    <RelativeLayout android:id="@+id/select_controls"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content">
+
+	    	<TextView
+	    	    android:id="@+id/tvSelectAll"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:layout_alignParentLeft="true"
+	    	    android:clickable="true"
+	    	    android:paddingLeft="7sp"
+	    	    android:text="@string/SelectAll" />
+
+	    	<TextView
+	    	    android:id="@+id/tvSelectNone"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:layout_alignParentRight="true"
+	    	    android:clickable="true"
+	    	    android:paddingRight="7sp"
+	    	    android:text="@string/SelectNone" />
+
+	    </RelativeLayout>
+    	<!-- Border -->
+	    <TextView android:layout_width="fill_parent"
+			android:layout_height="2dip"
+			android:background="#FF3F3F3F" />	    
+	    <ListView
+	        android:id="@+id/android:list"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:choiceMode="multipleChoice" />
+
+	  	<TextView android:id="@id/android:empty"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/no_monitors" 
+	        android:paddingBottom="20sp" 
+	        android:paddingRight="5sp" 
+	        android:paddingTop="20sp"/>
+    </LinearLayout>
+	
+	
+	
+</RelativeLayout>
