@@ -62,6 +62,7 @@ public class TrackerListActivity extends ListActivity {
         mDbHelper = new dbAdapter(this);
         mDbHelper.open();
 		Cursor c = mDbHelper.fetchAllTrackers();
+		startManagingCursor(c);
         String[] name_str = new String[] { dbAdapter.KEY_Tracker_Name };
         int[] name_field = new int[] { R.id.tvTitle };
         SimpleCursorAdapter tracker_names =
