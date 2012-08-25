@@ -14,7 +14,7 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import controllers.ExportLogic;
+import controllers.ExportData;
 
 public class ExportDataActivity extends ListActivity {
 	CheckBox cbSeparateDateTime, cbIncludeLastUpdate;
@@ -125,7 +125,7 @@ public class ExportDataActivity extends ListActivity {
 	}
 	private void exportData(boolean[] options){
 		long[] selectedTrackers = lv.getCheckedItemIds();
-		String outFile = ExportLogic.exportSomeData(options, this, selectedTrackers);
+		String outFile = ExportData.exportSomeData(options, this, selectedTrackers);
 		Intent email = new Intent(android.content.Intent.ACTION_SEND);
   		email.putExtra(Intent.EXTRA_SUBJECT, this.getString(R.string.eMailSubject)); 
   		email.putExtra(Intent.EXTRA_TEXT, this.getString(R.string.eMailText)); 
