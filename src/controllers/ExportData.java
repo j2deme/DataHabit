@@ -16,7 +16,7 @@ public class ExportData {
 	
 	public static String exportSomeData(boolean[] options, Context ctx, long[] selectedItems){
 		//options = {"Separate Date and Time Fields", "Include Last Update Time"};
-        String outFile = "file:///mnt/sdcard/DataHabit.csv";
+        String outFile = "/mnt/sdcard/DataHabit.csv";
 		CSVWriter writer;
 		try {
 			writer = new CSVWriter(new FileWriter(outFile));
@@ -28,6 +28,7 @@ public class ExportData {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		outFile = "file://" + outFile;
         return outFile;
 	}
 	private static String[] trackerCsvHeader(boolean[] options, Context cxt){
@@ -55,15 +56,15 @@ public class ExportData {
 				header = new String[4];//name,date,value,comment
 				header[0] = cxt.getString(R.string.TrackerName);
 				header[1] = cxt.getString(R.string.date);
-				header[3] = cxt.getString(R.string.value);
-				header[4] = cxt.getString(R.string.Comments);
+				header[2] = cxt.getString(R.string.value);
+				header[3] = cxt.getString(R.string.Comments);
 			}else{//0,1
 				header = new String[5];//name,date,value,comment,lastupdatedate
 				header[0] = cxt.getString(R.string.TrackerName);
 				header[1] = cxt.getString(R.string.date);
-				header[3] = cxt.getString(R.string.value);
-				header[4] = cxt.getString(R.string.Comments);
-				header[5] = cxt.getString(R.string.LastUpdatedDate);
+				header[2] = cxt.getString(R.string.value);
+				header[3] = cxt.getString(R.string.Comments);
+				header[4] = cxt.getString(R.string.LastUpdatedDate);
 			}
 		}
 		return header;
@@ -106,15 +107,15 @@ public class ExportData {
 					data = new String[4];//name,date,value,comment
 					data[0] = trackerName;
 					data[1] = f.milliToDateTime(d.getLong(2));
-					data[3] = UtilDat.getValueString(ctx, trackerType,d.getFloat(3));
-					data[4] = d.getString(4);
+					data[2] = UtilDat.getValueString(ctx, trackerType,d.getFloat(3));
+					data[3] = d.getString(4);
 				}else{//0,1
 					data = new String[5];//name,date,value,comment,lastupdatedate
 					data[0] = trackerName;
 					data[1] = f.milliToDateTime(d.getLong(2));
-					data[3] = UtilDat.getValueString(ctx, trackerType,d.getFloat(3));
-					data[4] = d.getString(4);
-					data[5] = f.milliToDateTime(d.getLong(5));
+					data[2] = UtilDat.getValueString(ctx, trackerType,d.getFloat(3));
+					data[3] = d.getString(4);
+					data[4] = f.milliToDateTime(d.getLong(5));
 				}
 			}
 		}
