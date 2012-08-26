@@ -5,6 +5,7 @@ import models.FormatHelper;
 import models.dbAdapter;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -137,7 +138,14 @@ public class ExportDataActivity extends ListActivity {
 	  		finish();			
 		} else{
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(this.getString(R.string.NoTrackersSelected));
+			builder.setMessage(this.getString(R.string.NoTrackersSelected))
+				.setCancelable(false)
+				.setPositiveButton(this.getString(R.string.OK)
+		    		   , new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   //Do nothing. Alert only
+		           }
+		       });
 			AlertDialog alert = builder.create();
 			alert.show();
 		}

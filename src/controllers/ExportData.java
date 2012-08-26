@@ -2,13 +2,17 @@ package controllers;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import models.FormatHelper;
 import models.dbAdapter;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Environment;
+import android.util.Log;
 import au.com.bytecode.opencsv.CSVWriter;
+
 import com.rdpharr.DataHabit.R;
 
 public class ExportData {
@@ -19,8 +23,10 @@ public class ExportData {
 	
 	public static String exportSomeData(boolean[] options, Context ctx, long[] selectedItems){
 		//options = {"Separate Date and Time Fields", "Include Last Update Time"};
-        String outFile = "/mnt/sdcard/DataHabit.csv";
-		results=null;
+		String outFile = Environment.getExternalStorageDirectory().toString() 
+				+ "/" +"DataHabit.csv";
+		Log.d("outFile", outFile);
+		results= new ArrayList<String[]>();
 		trackerCsvHeader(options, ctx);
 		
 		for (int i=0; i<selectedItems.length; i++){
@@ -31,6 +37,7 @@ public class ExportData {
 			CSVWriter writer = new CSVWriter(new FileWriter(outFile));
 			writer.writeAll(results);
 			writer.close();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -90,8 +97,8 @@ public class ExportData {
         Cursor d = mDbHelper.fetchAllData(trackerID);
     	if (options[1]==true){
 			if (options[0]==false){//1,0
-				String[] data = new String[5];//name,date,time,value,comment
 				for (int i=0; i<d.getCount(); i++){
+					String[] data = new String[5];//name,date,time,value,comment
 					d.moveToPosition(i);
 					data[0] = trackerName;
 					data[1] = f.milliToDate(d.getLong(2));
@@ -101,8 +108,8 @@ public class ExportData {
 					results.add(data);
 				}
 			}else{//1,1
-				String[] data = new String[7];//name,date,time,value,comment,lastupdatedate,lastupdatetime
 				for (int i=0; i<d.getCount(); i++){
+					String[] data = new String[7];//name,date,time,value,comment,lastupdatedate,lastupdatetime
 					d.moveToPosition(i);
 					data[0] = trackerName;
 					data[1] = f.milliToDate(d.getLong(2));
@@ -116,8 +123,8 @@ public class ExportData {
 			}
 		}else{
 			if (options[0]==false){//0,0
-				String[] data = new String[4];//name,date,value,comment
 				for (int i=0; i<d.getCount(); i++){
+					String[] data = new String[4];//name,date,value,comment
 					d.moveToPosition(i);
 					data[0] = trackerName;
 					data[1] = f.milliToDateTime(d.getLong(2));
@@ -126,8 +133,8 @@ public class ExportData {
 					results.add(data);
 				}
 			}else{//0,1
-				String[] data = new String[5];//name,date,value,comment,lastupdatedate
 				for (int i=0; i<d.getCount(); i++){
+					String[] data = new String[5];//name,date,value,comment,lastupdatedate
 					d.moveToPosition(i);
 					data[0] = trackerName;
 					data[1] = f.milliToDateTime(d.getLong(2));
