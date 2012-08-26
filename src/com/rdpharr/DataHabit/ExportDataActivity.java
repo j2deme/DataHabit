@@ -3,6 +3,7 @@ package com.rdpharr.DataHabit;
 import models.Analytic;
 import models.FormatHelper;
 import models.dbAdapter;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -125,13 +126,21 @@ public class ExportDataActivity extends ListActivity {
 	}
 	private void exportData(boolean[] options){
 		long[] selectedTrackers = lv.getCheckedItemIds();
-		String outFile = ExportData.exportSomeData(options, this, selectedTrackers);
-		Intent email = new Intent(android.content.Intent.ACTION_SEND);
-  		email.putExtra(Intent.EXTRA_SUBJECT, this.getString(R.string.eMailSubject)); 
-  		email.putExtra(Intent.EXTRA_TEXT, this.getString(R.string.eMailText)); 
-  		email.setType("application/octet-stream");
-  		email.putExtra(android.content.Intent.EXTRA_STREAM, Uri.parse(outFile));
-  		this.startActivity(email);
-  		finish();		
+		if(selectedTrackers.length>0){
+			String outFile = ExportData.exportSomeData(options, this, selectedTrackers);
+			Intent email = new Intent(android.content.Intent.ACTION_SEND);
+	  		email.putExtra(Intent.EXTRA_SUBJECT, this.getString(R.string.eMailSubject)); 
+	  		email.putExtra(Intent.EXTRA_TEXT, this.getString(R.string.eMailText)); 
+	  		email.setType("application/octet-stream");
+	  		email.putExtra(android.content.Intent.EXTRA_STREAM, Uri.parse(outFile));
+	  		this.startActivity(email);
+	  		finish();			
+		} else{
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(this.getString(R.string.NoTrackersSelected));
+			AlertDialog alert = builder.create();
+			alert.show();
+		}
+		
 	}
 }

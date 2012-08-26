@@ -102,4 +102,5 @@
     <string name="SelectNone">Select None</string>
     <string name="FileFormatOptions">File Format Options</string>
     <string name="SelectTrackersToExport">Select Trackers to Export</string>
+    <string name="NoTrackersSelected">No Trackers Selected</string>
 </resources>

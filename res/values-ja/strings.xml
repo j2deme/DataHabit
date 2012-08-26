@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
     <string name="WhatsNewDialog">"新バージョン1.8でます：\ n  - 改善されたデータエクスポート機能\ n  - で\ nのSDカードへの移動を許可する"</string>
     <string name="app_name">"DataHabit"</string>
@@ -101,4 +102,5 @@
     <string name="SelectNone">"選択なし"</string>
     <string name="FileFormatOptions">"ファイル形式のオプション"</string>
     <string name="SelectTrackersToExport">"エクスポートするトラッカーを選択"</string>
+    <string name="NoTrackersSelected">選択されていませんトラッカー</string>
 </resources>

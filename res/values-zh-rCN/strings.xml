@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
     <string name="WhatsNewDialog">"新的1.8版本：\ n \ n  - 允许移动到SD卡\ n  - 改进的数据导出功能"</string>
     <string name="app_name">"DataHabit"</string>
@@ -101,4 +102,5 @@
     <string name="SelectNone">"不选"</string>
     <string name="FileFormatOptions">"文件格式选项"</string>
     <string name="SelectTrackersToExport">"选择跟踪器导出"</string>
+    <string name="NoTrackersSelected">没有跟踪选择</string>
 </resources>
